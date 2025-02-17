@@ -30,3 +30,17 @@
 (use-package catppuccin-theme)
 (load-theme 'catppuccin :no-confirm)
 (setq catppuccin-flavor 'mocha)
+
+;; BETTER COMPLETION: vertico
+(use-package vertico
+  :ensure t
+  :bind (:map vertico-map
+	      ("C-j" . vertico-next)
+	      ("C-k" . vertico-previous)
+	      ("C-f" . vertico-exit)
+	      :map minibuffer-local-map
+	      ("M-h" . backward-kill-word))
+  :custom
+  (vertico-cycle t)
+  :init
+  (vertico-mode))
