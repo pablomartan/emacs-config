@@ -1,0 +1,32 @@
+(setq inhibit-startup-message t)
+
+(scroll-bar-mode -1) ;; hide scrollbar
+(tool-bar-mode -1) ;; hide toolbar
+(tooltip-mode -1) ;; disable tooltips
+(set-fringe-mode 10)
+
+(menu-bar-mode -1) ;; disable menubar
+
+(setq visible-bell t) ;; unset sound bell
+
+(set-face-attribute 'default nil :font "FiraCode Nerd Font" :height 110)
+
+;; setup package repositories
+(require 'package)
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+			 ("melpa-stable" . "https://stable.helpa.org/packages/")
+			 ("org" . "https://orgmode.org/elpa/")
+			 ("elpa" . "https://elpa.gnu.org/packages/")))
+
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;; make sure use-package macro is present and usable
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+;; THEME: catppuccin mocha
+(use-package catppuccin-theme)
+(load-theme 'catppuccin :no-confirm)
+(setq catppuccin-flavor 'mocha)
