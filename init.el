@@ -71,3 +71,23 @@
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package magit)
+
+(use-package typescript-mode)
+
+(use-package nix-mode)
+
+(setq major-mode-remap-alist
+ '((bash-mode . bash-ts-mode)
+   (bibtex-mode . bibtex-ts-mode)
+   (css-mode . css-ts-mode)
+   (dockerfile-mode . dockerfile-ts-mode)
+   (elisp-mode . elisp-ts-mode)
+   (html-mode . html-ts-mode)
+   (json-mode . json-ts-mode)
+   (latex-mode . latex-ts-mode)
+   (ledger-mode . ledger-ts-mode)
+   (lua-mode . lua-ts-mode)
+   (markdown-mode . markdown-ts-mode)
+   (python-mode . python-ts-mode)
+   (sql-mode . sql-ts-mode)
+   (typescript-mode . typescript-ts-mode)))
