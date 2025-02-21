@@ -12,6 +12,7 @@
   outputs = {
     nixpkgs,
     nix-emacs,
+    self,
     ...
   }: let
     pkgs = import nixpkgs {
@@ -50,8 +51,8 @@
         ];
     };
     devShells."x86_64-linux".default = pkgs.mkShell {
-      buildInputs = with pkgs; [
-        emacs
+      buildInputs = [
+        self.packages."x86_64-linux".default
       ];
     };
   };
