@@ -76,6 +76,7 @@
 
 (use-package nix-mode)
 
+;; tree-sitter modes remap
 (setq major-mode-remap-alist
  '((bash-mode . bash-ts-mode)
    (bibtex-mode . bibtex-ts-mode)
