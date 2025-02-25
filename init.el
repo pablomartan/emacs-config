@@ -62,8 +62,7 @@
 (column-number-mode)
 (global-display-line-numbers-mode t)
 
-(dolist (mode '(org-mode-hook
-		term-mode-hook
+(dolist (mode '(term-mode-hook
 		eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
@@ -92,3 +91,12 @@
    (python-mode . python-ts-mode)
    (sql-mode . sql-ts-mode)
    (typescript-mode . typescript-ts-mode)))
+
+;; org-mode settings
+(setq org-default-notes-file "~/wiki/org/refile.org")
+(setq org-agenda-files '("~/wiki/org"))
+
+;; keybindings
+(global-set-key (kbd "C-c l") #'org-store-link)
+(global-set-key (kbd "C-c a") #'org-agenda)
+(global-set-key (kbd "C-c c") #'org-capture)
