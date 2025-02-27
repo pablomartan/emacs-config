@@ -100,3 +100,7 @@
 (global-set-key (kbd "C-c l") #'org-store-link)
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
+
+(setq load-path (append (list (expand-file-name "/nix/store/jma0nckl9ladm4n4j5ixrbf33vm44q9z-lilypond-2.24.4/share/emacs/site-lisp")) load-path))
+
+(require 'LilyPond-mode)

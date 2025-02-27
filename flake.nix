@@ -49,6 +49,9 @@
               tree-sitter-typescript
             ]))
         ];
+      override = final: prev: {
+        final.buildInputs = prev.buildInputs ++ [ pkgs.lilypond ];
+      };
     };
     devShells."x86_64-linux".default = pkgs.mkShell {
       buildInputs = [
