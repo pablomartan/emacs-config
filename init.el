@@ -93,7 +93,7 @@
    (typescript-mode . typescript-ts-mode)))
 
 ;; org-mode settings
-(setq org-default-notes-file "~/wiki/org/refile.org")
+(setq org-default-notes-file "~/wiki/org/inbox.org")
 (setq org-agenda-files '("~/wiki/org"))
 
 ;; keybindings
