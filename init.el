@@ -95,6 +95,9 @@
 ;; org-mode settings
 (setq org-default-notes-file "~/wiki/org/inbox.org")
 (setq org-agenda-files '("~/wiki/org"))
+(setq org-refile-targets
+      `((nil :maxlevel . 3)
+	(,(directory-files-recursively "~/wiki/org/" "^[a-z]*.org$") :maxlevel . 3))) ;; 
 
 ;; keybindings
 (global-set-key (kbd "C-c l") #'org-store-link)
