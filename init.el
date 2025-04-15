@@ -9,7 +9,7 @@
 
 (setq visible-bell t) ;; unset sound bell
 
-(set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 110)
+(set-face-attribute 'default nil :font "JetBrainsMono NF 10")
 
 ;; setup package repositories
 (require 'package)
