@@ -118,6 +118,8 @@
   ;; example how to map a command in normal mode (called 'normal state' in evil)
   ;; (define-key evil-normal-state-map (kbd ", w") 'evil-window-vsplit))
 
+(load-library "lilypond-init")
+
 ;; keybindings
 (global-set-key (kbd "C-c l") #'org-store-link)
 (global-set-key (kbd "C-c a") #'org-agenda)
