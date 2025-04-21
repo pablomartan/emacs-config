@@ -112,11 +112,20 @@
   (setq evil-split-window-below t)
   (setq evil-shift-round nil)
   (setq evil-want-C-u-scroll t)
+  (setq evil-want-keybinding nil)
   :config ;; tweak evil after loading it
   (evil-mode))
 
   ;; example how to map a command in normal mode (called 'normal state' in evil)
   ;; (define-key evil-normal-state-map (kbd ", w") 'evil-window-vsplit))
+
+(use-package evil-leader
+  :init 
+  (setq evil-want-keybinding nil)
+  :config
+  (global-evil-leader-mode)
+  (evil-leader/set-leader "SPC")
+  (evil-leader/set-key "oc" 'org-capture))
 
 (load-library "lilypond-init")
 
