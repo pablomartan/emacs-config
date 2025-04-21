@@ -127,6 +127,11 @@
   (evil-leader/set-leader "SPC")
   (evil-leader/set-key "oc" 'org-capture))
 
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config (evil-collection-init '(dired org-mode magit)))
+
 (load-library "lilypond-init")
 
 ;; keybindings
