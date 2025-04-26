@@ -98,6 +98,12 @@
 (setq org-refile-targets
       `((nil :maxlevel . 3)
 	(,(directory-files-recursively "~/wiki/org/" "^[a-z]*.org$") :maxlevel . 3))) ;; 
+(setq org-capture-templates
+      '(("t" "Todo" entry (file "~/wiki/org/inbox.org")
+	 ;; actual template
+	 "* TODO %? \n")
+	("n" "Plain note" (file "~/wiki/org/inbox.org")
+	 "* %?\n")))
 
 (use-package goto-chg)
 (use-package undo-tree)
