@@ -114,18 +114,11 @@
   (setq evil-want-C-u-scroll t)
   (setq evil-want-keybinding nil)
   :config ;; tweak evil after loading it
-  (evil-mode))
-
+  (evil-mode)
+  (evil-set-leader nil (kbd "SPC"))
+  (evil-define-key 'normal 'global (kbd "<leader>oc") 'org-capture))
   ;; example how to map a command in normal mode (called 'normal state' in evil)
   ;; (define-key evil-normal-state-map (kbd ", w") 'evil-window-vsplit))
-
-(use-package evil-leader
-  :init 
-  (setq evil-want-keybinding nil)
-  :config
-  (global-evil-leader-mode)
-  (evil-leader/set-leader "SPC")
-  (evil-leader/set-key "oc" 'org-capture))
 
 (use-package evil-collection
   :after evil
