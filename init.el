@@ -1,14 +1,22 @@
+;; GENERAL EMACS SETTINGS
 (setq inhibit-startup-message t)
-
 (scroll-bar-mode -1) ;; hide scrollbar
 (tool-bar-mode -1) ;; hide toolbar
 (tooltip-mode -1) ;; disable tooltips
 (set-fringe-mode 10)
-
 (menu-bar-mode -1) ;; disable menubar
-
 (setq visible-bell t) ;; unset sound bell
+;; display line number
+(column-number-mode)
+(global-display-line-numbers-mode t) 
+(setq display-line-numbers-type 'relative)
+;; hide line numbers in certain modes
+(dolist (mode '(term-mode-hook
+		eshell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
+
+;; FONT
 (set-face-attribute 'default nil :font "JetBrainsMono NF 10")
 
 ;; setup package repositories
@@ -17,11 +25,9 @@
 			 ("melpa-stable" . "https://stable.helpa.org/packages/")
 			 ("org" . "https://orgmode.org/elpa/")
 			 ("elpa" . "https://elpa.gnu.org/packages/")))
-
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
-
 ;; make sure use-package macro is present and usable
 (require 'use-package)
 (setq use-package-always-ensure t)
@@ -30,6 +36,8 @@
 (use-package catppuccin-theme)
 (load-theme 'catppuccin :no-confirm)
 (setq catppuccin-flavor 'mocha)
+
+;; CUSTOM PACKAGES
 
 ;; BETTER COMPLETION: vertico
 (use-package vertico
@@ -45,37 +53,34 @@
   :init
   (vertico-mode))
 
-;; Enable rich annotations using the Marginalia package
+;; MARGINALIA: Enable rich annotations
 (use-package marginalia
   :bind (:map minibuffer-local-map
          ("M-A" . marginalia-cycle))
   :init
   (marginalia-mode))
 
-;; Add fuzzy-find-like functionality
+;; ORDERLESS: Add fuzzy-find-like functionality
 (use-package orderless
   :ensure t
   :custom
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
-(column-number-mode)
-(global-display-line-numbers-mode t)
-
-(dolist (mode '(term-mode-hook
-		eshell-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
+;; RAINBOW DELIMITERS
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
+;; MAGIT
 (use-package magit)
 
+;; TYPESCRIPT MODE
 (use-package typescript-mode)
 
+;; NIX MODE
 (use-package nix-mode)
 
-;; tree-sitter modes remap
+;; TREE-SITTER
 (setq major-mode-remap-alist
  '((bash-mode . bash-ts-mode)
    (bibtex-mode . bibtex-ts-mode)
@@ -92,26 +97,27 @@
    (sql-mode . sql-ts-mode)
    (typescript-mode . typescript-ts-mode)))
 
-;; org-mode settings
+;; ORG-MODE
 (setq org-default-notes-file "~/wiki/org/inbox.org")
 (setq org-agenda-files '("~/wiki/org"))
 (setq org-refile-targets
       `((nil :maxlevel . 3)
 	(,(directory-files-recursively "~/wiki/org/" "^[a-z]*.org$") :maxlevel . 3))) ;; 
-(setq org-capture-templates
-      '(("t" "Todo" entry (file "~/wiki/org/inbox.org")
-	 ;; actual template
-	 "* TODO %? \n")
-	("n" "Plain note" entry (file "~/wiki/org/inbox.org")
-	 "* %?\n")))
+(defvar custom-capture-templates
+  '(("t" "Todo" entry (file "~/wiki/org/inbox.org")
+     "* TODO %? \n")
+    ("n" "Plain note" entry (file "~/wiki/org/inbox.org")
+     "* %? \n")))
 
+;; EVIL MODE
+;; required packages
 (use-package goto-chg)
 (use-package undo-tree)
 (use-package undo-fu)
-
+;; evil settings
 (use-package evil
-  :ensure t ;; install the evil package if not installed
-  :init ;; tweak evil's configuration before loading it
+  :ensure t
+  :init
   (setq evil-search-module 'evil-search)
   (setq evil-ex-complete-emacs-commands nil)
   (setq evil-vsplit-window-right t)
@@ -119,21 +125,23 @@
   (setq evil-shift-round nil)
   (setq evil-want-C-u-scroll t)
   (setq evil-want-keybinding nil)
-  :config ;; tweak evil after loading it
+  :config
   (evil-mode)
   (evil-set-leader nil (kbd "SPC"))
-  (evil-define-key 'normal 'global (kbd "<leader>oc") 'org-capture))
+  (evil-define-key 'normal 'global (kbd "<leader>oc") 'org-capture)
+  (evil-define-key 'normal 'global (kbd "<leader>oa") 'org-agenda)
+  (evil-define-key 'normal 'global (kbd "<leader>ol") 'org-link))
   ;; example how to map a command in normal mode (called 'normal state' in evil)
   ;; (define-key evil-normal-state-map (kbd ", w") 'evil-window-vsplit))
 
+;; EVIL-COLLECTION
 (use-package evil-collection
   :after evil
   :ensure t
   :config (evil-collection-init '(dired org-mode magit)))
 
-(load-library "lilypond-init")
+;; start customization
+;; end customization
 
-;; keybindings
-(global-set-key (kbd "C-c l") #'org-store-link)
-(global-set-key (kbd "C-c a") #'org-agenda)
-(global-set-key (kbd "C-c c") #'org-capture)
+(setq org-capture-templates
+      custom-capture-templates)
