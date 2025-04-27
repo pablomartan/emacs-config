@@ -141,6 +141,7 @@
   :config (evil-collection-init '(dired org-mode magit)))
 
 ;; start customization
+(load-library "lilypond-init")
 ;; end customization
 
 (setq org-capture-templates

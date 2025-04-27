@@ -49,7 +49,8 @@
                 tree-sitter-tsx
                 tree-sitter-typescript
               ]))
-          ];
+          ]
+          ++ [pkgs.lilypond];
     };
     devShells."x86_64-linux".default = pkgs.mkShell {
       buildInputs = [
