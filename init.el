@@ -102,7 +102,7 @@
       '(("t" "Todo" entry (file "~/wiki/org/inbox.org")
 	 ;; actual template
 	 "* TODO %? \n")
-	("n" "Plain note" (file "~/wiki/org/inbox.org")
+	("n" "Plain note" entry (file "~/wiki/org/inbox.org")
 	 "* %?\n")))
 
 (use-package goto-chg)
