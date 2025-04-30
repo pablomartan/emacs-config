@@ -130,7 +130,8 @@
   (evil-set-leader nil (kbd "SPC"))
   (evil-define-key 'normal 'global (kbd "<leader>oc") 'org-capture)
   (evil-define-key 'normal 'global (kbd "<leader>oa") 'org-agenda)
-  (evil-define-key 'normal 'global (kbd "<leader>ol") 'org-link))
+  (evil-define-key 'normal 'global (kbd "<leader>ol") 'org-store-link)
+  (evil-define-key 'normal 'global (kbd "<leader>j") 'jump-to-register))
   ;; example how to map a command in normal mode (called 'normal state' in evil)
   ;; (define-key evil-normal-state-map (kbd ", w") 'evil-window-vsplit))
 
@@ -139,6 +140,10 @@
   :after evil
   :ensure t
   :config (evil-collection-init '(dired org-mode magit)))
+
+;; Shortcuts to several files (to use with <leader>j)
+(set-register ?p (cons 'file "~/wiki/org/projects.org"))
+(set-register ?i (cons 'file "~/wiki/org/inbox.org"))
 
 ;; start customization
 ;; end customization
