@@ -95,7 +95,9 @@
 
 ;; ORG-MODE
 (setq org-default-notes-file "~/wiki/org/inbox.org")
-(setq org-agenda-files '("~/wiki/org"))
+(setq org-agenda-files
+  `("~/wiki/org/projects.org" 
+    (,(directory-files-recursively "~/wiki/org/" "^[0-9]{10}.org$"))))
 (setq org-refile-targets
   `((nil :maxlevel . 3)
 	(,(directory-files-recursively "~/wiki/org/" "^[a-z]*.org$") :maxlevel . 3))) ;; 
@@ -157,7 +159,28 @@
 (set-register ?i (cons 'file "~/wiki/org/inbox.org"))
 
 ;; start customization
+(evil-define-key 'normal 'global (kbd "<leader>ci") 'org-clock-in)
+(evil-define-key 'normal 'global (kbd "<leader>co") 'org-clock-out)
+
+(defun get-daily-filename ()
+   (concat "~/wiki/org/" (format-time-string "%Y%m%d") ".org"))
+(defvar capture-extra-templates
+  `(("d" "Daily file template")
+     ("dn" "Add note to daily file" entry (file+headline ,(get-daily-filename) "Notas")
+     "* %?")
+     ("dd" "Daily meeting" entry (file ,(get-daily-filename))
+      "* Daily\n** Temas de interés\n %?"
+      :empty-lines-before 1)
+     ("dm" "Generic meeting" entry (file+headline ,(get-daily-filename) "Reuniones")
+      "* Reunión: %?\n%T\n* Participantes\n  - \n* Temas\n  - \n* Acuerdos\n  - \n* Acciones\n  - \n* Conclusiones\n  - \n"
+      :empty-lines-before 1)
+     ("da" "Daily agenda" entry (file+headline ,(get-daily-filename) "Programado")
+      "* %?"
+      :empty-lines-before 1)
+     ("di" "Interruption" entry (file+headline ,(get-daily-filename) "Tareas")
+      "* %^{Título}\n** Detalles\n%?"
+      :empty-lines-before 1)))
 ;; end customization
 
 (setq org-capture-templates
-      custom-capture-templates)
+      (append custom-capture-templates capture-extra-templates))
