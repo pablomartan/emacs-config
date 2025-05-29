@@ -109,6 +109,8 @@
      "* TODO %? \n")
     ("n" "Plain note" entry (file "~/wiki/org/inbox.org")
      "* %? \n")))
+(setq org-todo-keywords
+      '((sequence "TODO" "NEXT" "WAIT" "|" "DONE" "CANCELLED")))
 
 ;; EVIL MODE
 ;; required packages
