@@ -75,28 +75,8 @@
 ;; MAGIT
 (use-package magit)
 
-;; TYPESCRIPT MODE
-(use-package typescript-mode)
-
 ;; NIX MODE
 (use-package nix-mode)
-
-;; TREE-SITTER
-(setq major-mode-remap-alist
- '((bash-mode . bash-ts-mode)
-   (bibtex-mode . bibtex-ts-mode)
-   (css-mode . css-ts-mode)
-   (dockerfile-mode . dockerfile-ts-mode)
-   (elisp-mode . elisp-ts-mode)
-   (html-mode . html-ts-mode)
-   (json-mode . json-ts-mode)
-   (latex-mode . latex-ts-mode)
-   (ledger-mode . ledger-ts-mode)
-   (lua-mode . lua-ts-mode)
-   (markdown-mode . markdown-ts-mode)
-   (python-mode . python-ts-mode)
-   (sql-mode . sql-ts-mode)
-   (typescript-mode . typescript-ts-mode)))
 
 ;; ORG-MODE
 (setq org-default-notes-file "~/wiki/org/inbox.org")
