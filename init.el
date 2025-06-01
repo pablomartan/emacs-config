@@ -134,7 +134,11 @@
     (evil-define-key 'normal 'global (kbd "<leader>oc") 'org-capture)
     (evil-define-key 'normal 'global (kbd "<leader>oa") 'org-agenda)
     (evil-define-key 'normal 'global (kbd "<leader>ol") 'org-store-link)
-    (evil-define-key 'normal 'global (kbd "<leader>j") 'jump-to-register))
+    (evil-define-key 'normal 'global (kbd "<leader>j") 'jump-to-register)
+    (evil-define-key 'normal org-mode-map
+                     (kbd "TAB") 'org-cycle
+                     (kbd "<leader>>") 'org-shiftmetaright
+                     (kbd "<leader><") 'org-shiftmetaleft))
     ;; example how to map a command in normal mode (called 'normal state' in evil)
     ;; (define-key evil-normal-state-map (kbd ", w") 'evil-window-vsplit))
 
