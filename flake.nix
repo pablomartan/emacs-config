@@ -12,7 +12,6 @@
   outputs = {
     nixpkgs,
     nix-emacs,
-    self,
     ...
   }: let
     pkgs = import nixpkgs {
@@ -27,11 +26,6 @@
       config = ./init.el;
       alwaysEnsure = true;
       defaultInitFile = true;
-    };
-    devShells."x86_64-linux".default = pkgs.mkShell {
-      buildInputs = [
-        self.packages."x86_64-linux".default
-      ];
     };
   };
 }
