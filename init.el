@@ -148,6 +148,7 @@
 (set-register ?i (cons 'file "~/wiki/org/inbox.org"))
 
 ;; start customization
+(load-library "lilypond-init")
 ;; end customization
 
 (setq org-capture-templates
