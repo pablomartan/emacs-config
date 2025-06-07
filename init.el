@@ -14,7 +14,7 @@
 (dolist
   (mode '(term-mode-hook eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
+(load-theme 'modus-operandi)
 
 ;; FONT
 (set-face-attribute 'default nil :font "JetBrainsMono NF 10")
@@ -32,11 +32,6 @@
 ;; make sure use-package macro is present and usable
 (require 'use-package)
 (setq use-package-always-ensure t)
-
-;; THEME: catppuccin mocha
-(use-package catppuccin-theme)
-(load-theme 'catppuccin :no-confirm)
-(setq catppuccin-flavor 'mocha)
 
 ;; CUSTOM PACKAGES
 
