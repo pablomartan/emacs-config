@@ -111,9 +111,9 @@
      "** TODO %? \n")
     ("n" "Plain note" entry (file+headline "~/wiki/org/inbox.org" "Notes")
      "** %? \n")
-	("p" "Protocol" entry (file+headline "~/wiki/org/inbox.org" "Inbox")
+	("p" "Protocol" entry (file+headline "~/wiki/org/inbox.org" "Notes")
         "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-	("L" "Protocol Link" entry (file+headline "~/wiki/org/inbox.org" "Notes"))
+	("L" "Protocol Link" entry (file+headline "~/wiki/org/inbox.org" "Notes")
         "* %? [[%:link][%:description]] \nCaptured On: %U")))
 (setq org-todo-keywords
       '((sequence "TODO(t)" "NEXT" "WAIT" "|" "DONE(@)" "CANCELLED(@)")))
@@ -169,6 +169,7 @@
 (set-register ?i (cons 'file "~/wiki/org/inbox.org"))
 
 ;; start customization
+(load-library "lilypond-init")
 ;; end customization
 
 (setq org-capture-templates
