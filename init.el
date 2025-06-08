@@ -112,6 +112,8 @@
 (use-package goto-chg)
 (use-package undo-tree)
 (use-package undo-fu)
+(global-undo-tree-mode)
+
 ;; evil settings
 (use-package evil
   :ensure t
@@ -123,6 +125,7 @@
     (setq evil-shift-round nil)
     (setq evil-want-C-u-scroll t)
     (setq evil-want-keybinding nil)
+    (setq evil-undo-system 'undo-tree)
   :config
     (evil-mode)
     (evil-set-leader nil (kbd "SPC"))
@@ -130,6 +133,7 @@
     (evil-define-key 'normal 'global (kbd "<leader>oa") 'org-agenda)
     (evil-define-key 'normal 'global (kbd "<leader>ol") 'org-store-link)
     (evil-define-key 'normal 'global (kbd "<leader>j") 'jump-to-register)
+    (evil-define-key 'normal 'global (kbd "<leader>u") 'undo-tree-visualize)
     (evil-define-key 'normal org-mode-map
                      (kbd "TAB") 'org-cycle
                      (kbd "<leader>>") 'org-shiftmetaright
