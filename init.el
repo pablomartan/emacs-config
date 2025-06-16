@@ -131,6 +131,7 @@
     (evil-set-leader nil (kbd "SPC"))
     (evil-define-key 'normal 'global (kbd "<leader>oc") 'org-capture)
     (evil-define-key 'normal 'global (kbd "<leader>otc") 'org-todo)
+    (evil-define-key 'normal 'global (kbd "<leader>ost") 'org-set-tags-command)
     (evil-define-key 'normal 'global (kbd "<leader>pv") 'find-file)
     (evil-define-key 'normal 'global (kbd "<leader>oa") 'org-agenda)
     (evil-define-key 'normal 'global (kbd "<leader>ol") 'org-store-link)
