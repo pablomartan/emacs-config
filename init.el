@@ -102,9 +102,7 @@
 
 ;; ORG-MODE
 (setq org-default-notes-file "~/wiki/org/inbox.org")
-(setq org-agenda-files
-  `("~/wiki/org/projects.org" 
-    (,(directory-files-recursively "~/wiki/org/" "^[0-9]{10}.org$"))))
+(setq org-agenda-files '("~/wiki/org/projects.org"))
 (setq org-refile-targets
   `((nil :maxlevel . 3)
 	(,(directory-files-recursively "~/wiki/org/" "^[a-z]*.org$") :maxlevel . 3))) ;; 
