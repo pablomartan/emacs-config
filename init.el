@@ -9,7 +9,7 @@
 ;; display line number
 (column-number-mode)
 (global-display-line-numbers-mode t) 
-(setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type 'visual)
 ;; hide line numbers in certain modes
 (dolist
   (mode '(term-mode-hook eshell-mode-hook))
