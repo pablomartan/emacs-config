@@ -223,17 +223,18 @@
 (set-register ?i (cons 'file "~/wiki/org/inbox.org"))
 
 ;; start customization
+(evil-define-key 'normal 'global (kbd "<leader>oti") 'org-clock-in)
+(evil-define-key 'normal 'global (kbd "<leader>oto") 'org-clock-out)
+(defvar capture-extra-templates '())
 (setq org-agenda-custom-commands
-      '(("n" "Próximas tareas"
-         ((todo "NEXT"
-                ((org-agenda-overriding-header "Próximas tareas")))
-         (todo "TODO"
-                ((org-agenda-overriding-header "Tareas por empezar")))))
-        ("c" "Mis tareas"
-          (todo "PROG"
-                ((org-agenda-overriding-header "Tareas en progreso")))
-          (todo "WAIT"
-                ((org-agenda-overriding-header "Tareas esperando"))))))
+      '(("n" "Next tasks"
+         ((tags-todo "+dm+TODO=\"NEXT\""
+                     ((org-agenda-overriding-header "Device Management")))
+          (tags-todo "+ot+TODO=\"NEXT\""
+                     ((org-agenda-overriding-header "Oficina técnica")))
+          (tags-todo "-{.*}+TODO=\"NEXT\""
+                     ((org-agenda-overriding-header "Sin clasificar")))
+        ))))
 ;; end customization
 
 (setq org-capture-templates
