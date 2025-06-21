@@ -172,6 +172,15 @@
 (evil-define-key 'normal 'global (kbd "<leader>oti") 'org-clock-in)
 (evil-define-key 'normal 'global (kbd "<leader>oto") 'org-clock-out)
 (defvar capture-extra-templates '())
+(setq org-agenda-custom-commands
+      '(("n" "Next tasks"
+         ((tags-todo "+dm+TODO=\"NEXT\""
+                     ((org-agenda-overriding-header "Device Management")))
+          (tags-todo "+ot+TODO=\"NEXT\""
+                     ((org-agenda-overriding-header "Oficina técnica")))
+          (tags-todo "-{.*}+TODO=\"NEXT\""
+                     ((org-agenda-overriding-header "Sin clasificar")))
+        ))))
 ;; end customization
 
 (setq org-capture-templates
