@@ -6,10 +6,12 @@
 (set-fringe-mode 10)
 (menu-bar-mode -1) ;; disable menubar
 (setq visible-bell t) ;; unset sound bell
+
 ;; display line number
 (column-number-mode)
 (global-display-line-numbers-mode t) 
 (setq display-line-numbers-type 'visual)
+
 ;; hide line numbers in certain modes
 (dolist
   (mode '(term-mode-hook eshell-mode-hook))
@@ -29,9 +31,14 @@
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
+
 ;; make sure use-package macro is present and usable
 (require 'use-package)
 (setq use-package-always-ensure t)
+
+;; start emacs server
+(server-start)
+(require 'org-protocol)
 
 ;; CUSTOM PACKAGES
 
