@@ -107,10 +107,10 @@
   `((nil :maxlevel . 3)
 	(,(directory-files-recursively "~/wiki/org/" "^[a-z]*.org$") :maxlevel . 3))) ;; 
 (defvar custom-capture-templates
-  '(("t" "Todo" entry (file "~/wiki/org/inbox.org")
-     "* TODO %? \n")
-    ("n" "Plain note" entry (file "~/wiki/org/inbox.org")
-     "* %? \n")))
+  '(("t" "Todo" entry (file+headline "~/wiki/org/inbox.org" "Tasks")
+     "** TODO %? \n")
+    ("n" "Plain note" entry (file+headline "~/wiki/org/inbox.org" "Notes")
+     "** %? \n")))
 (setq org-todo-keywords
       '((sequence "TODO(t)" "NEXT" "WAIT" "|" "DONE(@)" "CANCELLED(@)")))
 
