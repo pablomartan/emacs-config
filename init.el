@@ -143,7 +143,6 @@
     (evil-define-key 'normal 'global (kbd "<leader>oa") 'org-agenda)
     (evil-define-key 'normal 'global (kbd "<leader>ol") 'org-store-link)
     (evil-define-key 'normal 'global (kbd "<leader>oo") 'org-open-at-point)
-    (evil-define-key 'normal 'global (kbd "<leader>oel") 'org-open-at-point)
     (evil-define-key 'normal 'global (kbd "<leader>j") 'jump-to-register)
     (evil-define-key 'normal 'global (kbd "<leader>u") 'undo-tree-visualize)
     (evil-define-key 'normal org-mode-map
