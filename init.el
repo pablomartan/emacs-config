@@ -110,7 +110,11 @@
   '(("t" "Todo" entry (file+headline "~/wiki/org/inbox.org" "Tasks")
      "** TODO %? \n")
     ("n" "Plain note" entry (file+headline "~/wiki/org/inbox.org" "Notes")
-     "** %? \n")))
+     "** %? \n")
+	("p" "Protocol" entry (file+headline "~/wiki/org/inbox.org" "Notes")
+        "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+	("L" "Protocol Link" entry (file+headline "~/wiki/org/inbox.org" "Notes")
+        "* %? [[%:link][%:description]] \nCaptured On: %U")))
 (setq org-todo-keywords
       '((sequence "TODO(t)" "NEXT" "WAIT" "|" "DONE(@)" "CANCELLED(@)")))
 (setq org-hide-emphasis-markers t)
