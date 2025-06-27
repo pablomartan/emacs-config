@@ -113,6 +113,8 @@
      "** %? \n")))
 (setq org-todo-keywords
       '((sequence "TODO(t)" "NEXT" "WAIT" "|" "DONE(@)" "CANCELLED(@)")))
+(setq org-hide-emphasis-markers t)
+(setq org-hide-leading-stars t)
 
 ;; EVIL MODE
 ;; required packages
