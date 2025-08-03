@@ -102,7 +102,7 @@
 
 ;; ORG-MODE
 (setq org-default-notes-file "~/wiki/org/inbox.org")
-(setq org-agenda-files '("~/wiki/org"))
+(setq org-agenda-files '("~/wiki/org/projects.org"))
 (setq org-refile-targets
   `((nil :maxlevel . 3)
 	(,(directory-files-recursively "~/wiki/org/" "^[a-z]*.org$") :maxlevel . 3))) ;; 
@@ -111,12 +111,12 @@
      "** TODO %? \n")
     ("n" "Plain note" entry (file+headline "~/wiki/org/inbox.org" "Notes")
      "** %? \n")
-	("p" "Protocol" entry (file+headline "~/wiki/org/inbox.org" "Notes")
+    ("p" "Protocol" entry (file+headline "~/wiki/org/inbox.org" "Notes")
         "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-	("L" "Protocol Link" entry (file+headline "~/wiki/org/inbox.org" "Notes")
+    ("L" "Protocol Link" entry (file+headline "~/wiki/org/inbox.org" "Notes")
         "* %? [[%:link][%:description]] \nCaptured On: %U")))
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "NEXT" "WAIT" "|" "DONE(@)" "CANCELLED(@)")))
+      '((sequence "TODO(t)" "NEXT" "PROG" "WAIT" "|" "DONE(@)" "CANCELLED(@)")))
 (setq org-hide-emphasis-markers t)
 (setq org-hide-leading-stars t)
 
@@ -169,6 +169,19 @@
 (set-register ?i (cons 'file "~/wiki/org/inbox.org"))
 
 ;; start customization
+(load-library "lilypond-init")
+(setq org-agenda-custom-commands
+      '(("n" "Próximas tareas"
+         ((todo "NEXT"
+                ((org-agenda-overriding-header "Próximas tareas")))
+         (todo "TODO"
+                ((org-agenda-overriding-header "Tareas por empezar"))))
+        (("c" "Mis tareas"
+          (todo "PROG"
+                ((org-agenda-overriding-header "Tareas en progreso")))
+          (todo "WAIT"
+                ((org-agenda-overriding-header "Tareas esperando")))
+          )))))
 ;; end customization
 
 (setq org-capture-templates
