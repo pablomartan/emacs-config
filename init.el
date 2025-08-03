@@ -16,7 +16,7 @@
 (dolist
   (mode '(term-mode-hook eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
-(load-theme 'modus-operandi)
+(load-theme 'modus-vivendi)
 
 ;; FONT
 (set-face-attribute 'default nil :font "JetBrainsMono NF 10")
@@ -74,9 +74,6 @@
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
-;; MAGIT
-(use-package magit)
-
 ;; TYPESCRIPT MODE
 (use-package typescript-mode)
 
@@ -120,6 +117,30 @@
 (setq org-hide-emphasis-markers t)
 (setq org-hide-leading-stars t)
 
+;; ORG EXTRAS
+(add-hook
+ 'text-mode-hook
+ 'auto-fill-mode)
+(setq org-indent-indentation-per-level 1)
+(setq org-adapt-indentation nil)
+(customize-set-variable 'org-blank-before-new-entry 
+                        '((heading . nil)
+                          (plain-list-item . nil)))
+(setq org-cycle-separator-lines 1)
+
+(dolist (face '((org-level-1 . 1.35)
+                (org-level-2 . 1.3)
+                (org-level-3 . 1.2)
+                (org-level-4 . 1.1)
+                (org-level-5 . 1.1)
+                (org-level-6 . 1.1)
+                (org-level-7 . 1.1)
+                (org-level-8 . 1.1)))
+  (set-face-attribute (car face) nil :inherit :font :weight 'bold :height (cdr face)))
+
+;; Make the document title a bit bigger
+(set-face-attribute 'org-document-title nil :inherit :font :weight 'bold :height 1.8)
+
 ;; EVIL MODE
 ;; required packages
 (use-package goto-chg)
@@ -149,6 +170,8 @@
     (evil-define-key 'normal 'global (kbd "<leader>oa") 'org-agenda)
     (evil-define-key 'normal 'global (kbd "<leader>ol") 'org-store-link)
     (evil-define-key 'normal 'global (kbd "<leader>oo") 'org-open-at-point)
+    (evil-define-key 'normal 'global (kbd "<leader>ons") 'org-narrow-to-subtree)
+    (evil-define-key 'normal 'global (kbd "<leader>onw") 'widen)
     (evil-define-key 'normal 'global (kbd "<leader>j") 'jump-to-register)
     (evil-define-key 'normal 'global (kbd "<leader>u") 'undo-tree-visualize)
     (evil-define-key 'normal org-mode-map
@@ -169,19 +192,17 @@
 (set-register ?i (cons 'file "~/wiki/org/inbox.org"))
 
 ;; start customization
-(load-library "lilypond-init")
 (setq org-agenda-custom-commands
       '(("n" "Próximas tareas"
          ((todo "NEXT"
                 ((org-agenda-overriding-header "Próximas tareas")))
          (todo "TODO"
-                ((org-agenda-overriding-header "Tareas por empezar"))))
-        (("c" "Mis tareas"
+                ((org-agenda-overriding-header "Tareas por empezar")))))
+        ("c" "Mis tareas"
           (todo "PROG"
                 ((org-agenda-overriding-header "Tareas en progreso")))
           (todo "WAIT"
-                ((org-agenda-overriding-header "Tareas esperando")))
-          )))))
+                ((org-agenda-overriding-header "Tareas esperando"))))))
 ;; end customization
 
 (setq org-capture-templates
