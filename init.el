@@ -111,12 +111,12 @@
      "** TODO %? \n")
     ("n" "Plain note" entry (file+headline "~/wiki/org/inbox.org" "Notes")
      "** %? \n")
-	("p" "Protocol" entry (file+headline "~/wiki/org/inbox.org" "Notes")
+    ("p" "Protocol" entry (file+headline "~/wiki/org/inbox.org" "Notes")
         "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-	("L" "Protocol Link" entry (file+headline "~/wiki/org/inbox.org" "Notes")
+    ("L" "Protocol Link" entry (file+headline "~/wiki/org/inbox.org" "Notes")
         "* %? [[%:link][%:description]] \nCaptured On: %U")))
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "NEXT" "WAIT" "|" "DONE(@)" "CANCELLED(@)")))
+      '((sequence "TODO(t)" "NEXT" "PROG" "WAIT(@)" "|" "DONE(@)" "CANCELLED(@)")))
 (setq org-hide-emphasis-markers t)
 (setq org-hide-leading-stars t)
 
@@ -173,14 +173,17 @@
 (evil-define-key 'normal 'global (kbd "<leader>oto") 'org-clock-out)
 (defvar capture-extra-templates '())
 (setq org-agenda-custom-commands
-      '(("n" "Next tasks"
-         ((tags-todo "+dm+TODO=\"NEXT\""
-                     ((org-agenda-overriding-header "Device Management")))
-          (tags-todo "+ot+TODO=\"NEXT\""
-                     ((org-agenda-overriding-header "Oficina técnica")))
-          (tags-todo "-{.*}+TODO=\"NEXT\""
-                     ((org-agenda-overriding-header "Sin clasificar")))
-        ))))
+      '(("p" "Tasks in progress"
+         ((tags-todo "+dm+TODO=\"PROG\""
+                ((org-agenda-overriding-header "Device Management")))
+          (tags-todo "+ot+TODO=\"PROG\""
+                ((org-agenda-overriding-header "Oficina técnica")))
+          (tags-todo "-{.*}+TODO=\"PROG\""
+                ((org-agenda-overriding-header "Sin clasificar")))
+          (todo "WAIT"
+                ((org-agenda-overriding-header "Tareas bloqueadas")))
+          (todo "NEXT"
+                ((org-agenda-overriding-header "Siguientes")))))))
 ;; end customization
 
 (setq org-capture-templates
