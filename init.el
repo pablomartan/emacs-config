@@ -16,7 +16,7 @@
 (dolist
   (mode '(term-mode-hook eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
-(load-theme 'modus-vivendi)
+(load-theme 'modus-operandi)
 
 ;; FONT
 (when (member "JetBrainsMono NF 10" (font-family-list))
