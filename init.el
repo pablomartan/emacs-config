@@ -16,10 +16,15 @@
 (dolist
   (mode '(term-mode-hook eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
-(load-theme 'modus-operandi)
+(load-theme 'modus-vivendi)
 
 ;; FONT
-(set-face-attribute 'default nil :font "JetBrainsMono NF 10")
+(when (member "JetBrainsMono NF 10" (font-family-list))
+  (set-face-attribute 'default nil :font "JetBrainsMono NF 10")
+  (set-face-attribute 'fixed-pitch nil :family "JetBrainsMono NF 10"))
+
+(when (member "Inter Nerd Font" (font-family-list))
+  (set-face-attribute 'variable-pitch nil :family "Inter Nerd Font" :height 1.18))
 
 ;; setup package repositories
 (require 'package)
@@ -74,9 +79,6 @@
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
-;; MAGIT
-(use-package magit)
-
 ;; TYPESCRIPT MODE
 (use-package typescript-mode)
 
@@ -120,6 +122,51 @@
 (setq org-hide-emphasis-markers t)
 (setq org-hide-leading-stars t)
 
+;; ORG EXTRAS
+;; Resize Org headings
+(dolist (face '((org-level-1 . 1.35)
+                (org-level-2 . 1.3)
+                (org-level-3 . 1.2)
+                (org-level-4 . 1.1)
+                (org-level-5 . 1.1)
+                (org-level-6 . 1.1)
+                (org-level-7 . 1.1)
+                (org-level-8 . 1.1)))
+  (set-face-attribute (car face) nil :font "Inter Nerd Font" :weight 'bold :height (cdr face)))
+
+;; Make the document title a bit bigger
+(set-face-attribute 'org-document-title nil :font "Inter Nerd Font" :weight 'bold :height 1.8)
+
+(require 'org-indent)
+(set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
+
+(set-face-attribute 'org-block nil            :foreground nil :inherit 'fixed-pitch :height 0.85)
+(set-face-attribute 'org-code nil             :inherit '(shadow fixed-pitch) :height 0.85)
+(set-face-attribute 'org-indent nil           :inherit '(org-hide fixed-pitch) :height 0.85)
+(set-face-attribute 'org-verbatim nil         :inherit '(shadow fixed-pitch) :height 0.85)
+(set-face-attribute 'org-special-keyword nil  :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-meta-line nil        :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-checkbox nil         :inherit 'fixed-pitch)
+
+(add-hook 'org-mode-hook 'variable-pitch-mode)
+
+(plist-put org-format-latex-options :scale 2)
+
+(setq org-adapt-indentation t
+      org-hide-leading-stars t
+      org-hide-emphasis-markers t
+      org-pretty-entities t
+	  org-ellipsis "  ·")
+
+(setq org-src-fontify-natively t
+	  org-src-tab-acts-natively t
+      org-edit-src-content-indentation 0)
+
+(add-hook 'org-mode-hook 'visual-line-mode)
+
+(use-package olivetti)
+(add-hook 'org-mode-hook 'olivetti-mode)
+
 ;; EVIL MODE
 ;; required packages
 (use-package goto-chg)
@@ -149,6 +196,8 @@
     (evil-define-key 'normal 'global (kbd "<leader>oa") 'org-agenda)
     (evil-define-key 'normal 'global (kbd "<leader>ol") 'org-store-link)
     (evil-define-key 'normal 'global (kbd "<leader>oo") 'org-open-at-point)
+    (evil-define-key 'normal 'global (kbd "<leader>ons") 'org-narrow-to-subtree)
+    (evil-define-key 'normal 'global (kbd "<leader>onw") 'widen)
     (evil-define-key 'normal 'global (kbd "<leader>j") 'jump-to-register)
     (evil-define-key 'normal 'global (kbd "<leader>u") 'undo-tree-visualize)
     (evil-define-key 'normal org-mode-map
@@ -169,19 +218,17 @@
 (set-register ?i (cons 'file "~/wiki/org/inbox.org"))
 
 ;; start customization
-(load-library "lilypond-init")
 (setq org-agenda-custom-commands
       '(("n" "Próximas tareas"
          ((todo "NEXT"
                 ((org-agenda-overriding-header "Próximas tareas")))
          (todo "TODO"
-                ((org-agenda-overriding-header "Tareas por empezar"))))
-        (("c" "Mis tareas"
+                ((org-agenda-overriding-header "Tareas por empezar")))))
+        ("c" "Mis tareas"
           (todo "PROG"
                 ((org-agenda-overriding-header "Tareas en progreso")))
           (todo "WAIT"
-                ((org-agenda-overriding-header "Tareas esperando")))
-          )))))
+                ((org-agenda-overriding-header "Tareas esperando"))))))
 ;; end customization
 
 (setq org-capture-templates
