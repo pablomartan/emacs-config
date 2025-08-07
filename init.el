@@ -137,6 +137,8 @@
 ;; Make the document title a bit bigger
 (set-face-attribute 'org-document-title nil :font "Inter Nerd Font" :weight 'bold :height 1.8)
 
+(set-face-attribute 'line-number nil :font "JetBrainsMono NF 10")
+
 (require 'org-indent)
 (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
 
