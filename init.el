@@ -169,7 +169,13 @@
 
 (add-hook 'org-mode-hook 'visual-line-mode)
 
-(use-package olivetti)
+(use-package olivetti
+             :diminish
+             :commands olivetti-mode
+             :config
+             (setq olivetti-body-width 0.50)
+             (setq olivetti-minimum-body-width 100))
+
 (add-hook 'org-mode-hook 'olivetti-mode)
 
 ;; EVIL MODE
