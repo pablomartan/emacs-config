@@ -26,7 +26,7 @@
 (when (member "Inter Nerd Font" (font-family-list))
   (set-face-attribute 'variable-pitch nil :family "Inter Nerd Font" :height 1.18))
 
-(set-face-attribute 'line-number 'default)
+(custom-set-faces '(line-number ((t 'default))))
 
 ;; setup package repositories
 (require 'package)
@@ -169,7 +169,13 @@
 
 (add-hook 'org-mode-hook 'visual-line-mode)
 
-(use-package olivetti)
+(use-package olivetti
+             :diminish
+             :commands olivetti-mode
+             :config
+             (setq olivetti-body-width 0.50)
+             (setq olivetti-minimum-body-width 100))
+
 (add-hook 'org-mode-hook 'olivetti-mode)
 
 ;; EVIL MODE
