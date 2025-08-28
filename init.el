@@ -26,7 +26,7 @@
 (when (member "Inter Nerd Font" (font-family-list))
   (set-face-attribute 'variable-pitch nil :family "Inter Nerd Font" :height 1.18))
 
-(custom-set-faces '(line-number ((t 'default))))
+(custom-set-faces '(line-number ((t 'fixed-pitch))))
 
 ;; setup package repositories
 (require 'package)
