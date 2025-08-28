@@ -233,12 +233,12 @@
 (evil-define-key 'normal 'global (kbd "<leader>oto") 'org-clock-out)
 (defvar capture-extra-templates '())
 (setq org-agenda-custom-commands
-      '(("n" "Next tasks"
-         ((tags-todo "+dm+TODO=\"NEXT\""
+      '(("p" "Tasks in progress"
+         ((tags-todo "+dm+TODO=\"PROG\""
                      ((org-agenda-overriding-header "Device Management")))
-          (tags-todo "+ot+TODO=\"NEXT\""
+          (tags-todo "+ot+TODO=\"PROG\""
                      ((org-agenda-overriding-header "Oficina técnica")))
-          (tags-todo "-{.*}+TODO=\"NEXT\""
+          (tags-todo "-{.*}+TODO=\"PROG\""
                      ((org-agenda-overriding-header "Sin clasificar")))
         ))))
 ;; end customization
