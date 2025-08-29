@@ -19,9 +19,9 @@
 (load-theme 'modus-operandi)
 
 ;; FONT
-(when (member "JetBrainsMono NF 10" (font-family-list))
-  (set-face-attribute 'default nil :font "JetBrainsMono NF 10")
-  (set-face-attribute 'fixed-pitch nil :family "JetBrainsMono NF 10"))
+(when (member "JetBrainsMono Nerd Font" (font-family-list))
+  (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font")
+  (set-face-attribute 'fixed-pitch nil :family "JetBrainsMono Nerd Font"))
 
 (when (member "Inter Nerd Font" (font-family-list))
   (set-face-attribute 'variable-pitch nil :family "Inter Nerd Font" :height 1.18))
