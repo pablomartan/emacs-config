@@ -106,7 +106,7 @@
 
 ;; ORG-MODE
 (setq org-default-notes-file "~/wiki/org/inbox.org")
-(setq org-agenda-files '("~/wiki/org/projects.org"))
+(setq org-agenda-files '("~/wiki/org/projects.org" "~/wiki/org/inbox.org"))
 (setq org-refile-targets
   `((nil :maxlevel . 3)
 	(,(directory-files-recursively "~/wiki/org/" "^[a-z]*.org$") :maxlevel . 3))) ;; 
@@ -240,7 +240,12 @@
                      ((org-agenda-overriding-header "Oficina técnica")))
           (tags-todo "-{.*}+TODO=\"PROG\""
                      ((org-agenda-overriding-header "Sin clasificar")))
-        ))))
+        ))
+        ("t" "Task planning agenda"
+         ((todo "TODO" ((org-agenda-overriding-header "Todo tasks")))
+          (tags-todo "+TODO=\"NEXT\"" ((org-agenda-overriding-header "Tareas en cola")))
+          (tags-todo "+TODO=\"WAIT\"" ((org-agenda-overriding-header "Tareas bloqueadas")))
+          (tags-todo "+TODO=\"PROG\"" ((org-agenda-overriding-header "Tareas en progreso")))))))
 ;; end customization
 
 (setq org-capture-templates
