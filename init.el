@@ -151,11 +151,10 @@
 (set-face-attribute 'org-verbatim nil         :inherit '(shadow fixed-pitch) :height 0.85)
 (set-face-attribute 'org-special-keyword nil  :inherit '(font-lock-comment-face fixed-pitch))
 (set-face-attribute 'org-meta-line nil        :inherit '(font-lock-comment-face fixed-pitch))
-(set-face-attribute 'org-checkbox nil         :inherit 'fixed-pitch)
+(set-face-attribute 'org-checkbox nil         :inherit 'fixed-pitch :height 0.85)
+(set-face-attribute 'org-table nil            :inherit 'fixed-pitch :height 0.85)
 
 (add-hook 'org-mode-hook 'variable-pitch-mode)
-
-(plist-put org-format-latex-options :scale 2)
 
 (setq org-adapt-indentation t
       org-hide-leading-stars t
