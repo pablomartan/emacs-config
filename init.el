@@ -123,6 +123,7 @@
       '((sequence "TODO(t)" "NEXT" "PROG" "WAIT" "|" "DONE(@)" "CANCELLED(@)")))
 (setq org-hide-emphasis-markers t)
 (setq org-hide-leading-stars t)
+(setq org-use-sub-superscripts "{}")
 (require 'ox-md)
 
 ;; ORG EXTRAS
