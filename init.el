@@ -19,19 +19,10 @@
 (load-theme 'modus-operandi)
 
 ;; FONT
-(when (member "JetBrainsMono Nerd Font" (font-family-list))
-  (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font")
-  (set-face-attribute 'fixed-pitch nil :family "JetBrainsMono Nerd Font"))
-
-(when (member "Inter Nerd Font" (font-family-list))
-  (set-face-attribute 'variable-pitch nil :family "Inter Nerd Font" :height 1.18))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(line-number ((t 'fixed-pitch))))
+(set-face-attribute 'default nil :font "JetBrainsMono Nerd Font")
+(set-face-attribute 'fixed-pitch nil :family "JetBrainsMono Nerd Font")
+(set-face-attribute 'line-number nil :family "JetBrainsMono Nerd Font")
+(set-face-attribute 'variable-pitch nil :family "Inter Nerd Font" :height 1.18)
 
 ;; setup package repositories
 (require 'package)
@@ -147,8 +138,6 @@
 
 ;; Make the document title a bit bigger
 (set-face-attribute 'org-document-title nil :font "Inter Nerd Font" :weight 'bold :height 1.8)
-
-(set-face-attribute 'line-number nil :font "JetBrainsMono NF 10")
 
 (require 'org-indent)
 (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
