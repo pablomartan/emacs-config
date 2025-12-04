@@ -44,8 +44,6 @@
 (require 'org-protocol)
 
 ;; CUSTOM PACKAGES
-(use-package humanoid-themes)
-(load-theme 'humanoid-light t)
 
 ;; BETTER COMPLETION: vertico
 (use-package vertico
@@ -118,7 +116,7 @@
     ("L" "Protocol Link" entry (file+headline "~/wiki/org/inbox.org" "Notes")
         "* %? [[%:link][%:description]] \nCaptured On: %U")))
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "NEXT" "PROG" "WAIT" "|" "DONE(@)" "CANCELLED(@)")))
+      '((sequence "TODO(t)" "PROG" "WAIT" "|" "DONE(@)" "CANCELLED(@)")))
 (setq org-hide-emphasis-markers t)
 (setq org-hide-leading-stars t)
 (setq org-use-sub-superscripts "{}")
