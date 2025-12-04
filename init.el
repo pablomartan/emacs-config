@@ -115,6 +115,11 @@
         "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
     ("L" "Protocol Link" entry (file+headline "~/wiki/org/inbox.org" "Notes")
         "* %? [[%:link][%:description]] \nCaptured On: %U")))
+
+(keymap-global-set "C-c c" 'org-capture)
+(keymap-global-set "C-c a" 'org-agenda)
+(keymap-global-set "C-c j" 'org-store-link)
+
 (setq org-todo-keywords
       '((sequence "TODO(t)" "PROG" "WAIT" "|" "DONE(@)" "CANCELLED(@)")))
 (setq org-hide-emphasis-markers t)
