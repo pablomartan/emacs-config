@@ -174,12 +174,12 @@
 ;; start customization
 (setq org-agenda-custom-commands
       '(("n" "Próximas tareas"
-         (todo "PROG"
-               ((org-agenda-overriding-header "Tareas en curso")))
-         (todo "WAIT"
-               ((org-agenda-overriding-header "Tareas en espera")))
-         (todo "TODO"
-                ((org-agenda-overriding-header "Tareas por empezar"))))))
+         ((tags-todo "+TODO=\"PROG\""
+                     ((org-agenda-overriding-header "Tareas en curso")))
+          (tags-todo "+TODO=\"WAIT\""
+                     ((org-agenda-overriding-header "Tareas en espera")))
+          (todo "TODO"
+                ((org-agenda-overriding-header "Tareas por empezar")))))))
 ;; end customization
 
 (setq org-capture-templates
