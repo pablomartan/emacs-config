@@ -24,17 +24,6 @@
 (set-face-attribute 'line-number nil :family "JetBrainsMono Nerd Font")
 (set-face-attribute 'variable-pitch nil :family "Inter Nerd Font" :height 1.18)
 
-;; setup package repositories
-(require 'package)
-(setq package-archives
-  '(("melpa" . "https://melpa.org/packages/")
-	("melpa-stable" . "https://stable.helpa.org/packages/")
-	("org" . "https://orgmode.org/elpa/")
-	("elpa" . "https://elpa.gnu.org/packages/")))
-(package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
-
 ;; make sure use-package macro is present and usable
 (require 'use-package)
 (setq use-package-always-ensure t)
@@ -196,7 +185,7 @@
          (todo "WAIT"
                ((org-agenda-overriding-header "Tareas en espera")))
          (todo "TODO"
-                ((org-agenda-overriding-header "Tareas por empezar")))))
+                ((org-agenda-overriding-header "Tareas por empezar"))))))
 ;; end customization
 
 (setq org-capture-templates
