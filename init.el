@@ -180,7 +180,8 @@
                      ((org-agenda-overriding-header "Oficina técnica")))
           (tags-todo "-{.*}+TODO=\"PROG\""
                      ((org-agenda-overriding-header "Sin clasificar")))
-        ))
+          (tags-todo "+TODO=\"WAIT\""
+                     ((org-agenda-overriding-header "En espera")))))
         ("t" "Task planning agenda"
          ((todo "TODO" ((org-agenda-overriding-header "Todo tasks")))
           (tags-todo "+TODO=\"NEXT\"" ((org-agenda-overriding-header "Tareas en cola")))
