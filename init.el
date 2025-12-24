@@ -24,3 +24,15 @@
        :branch "rewrite"))
 
 (load-theme 'nano t)
+
+;; nano-layout
+(use-package nano-modeline
+  :vc (:url "https://github.com/rougier/nano-modeline.git"
+	    :rev :newest
+	    :branch "master"))
+
+(add-hook 'prog-mode-hook            #'nano-modeline-prog-mode)
+(add-hook 'text-mode-hook            #'nano-modeline-text-mode)
+(add-hook 'org-mode-hook             #'nano-modeline-org-mode)
+(add-hook 'org-capture-mode-hook     #'nano-modeline-org-capture-mode)
+(add-hook 'org-agenda-mode-hook      #'nano-modeline-org-agenda-mode)
