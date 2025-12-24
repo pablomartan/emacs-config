@@ -11,3 +11,16 @@
 (column-number-mode)
 (global-display-line-numbers-mode t) 
 (setq display-line-numbers-type 'visual)
+
+;; set up package management
+(require 'package)
+(package-initialize)
+
+;; nano-theme
+(use-package nano-theme
+  :vc (:url "https://github.com/rougier/nano-theme.git"
+       :main-file "nano-theme.el"
+       :rev :newest
+       :branch "rewrite"))
+
+(load-theme 'nano t)
