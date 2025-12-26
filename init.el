@@ -36,3 +36,14 @@
 (add-hook 'org-mode-hook             #'nano-modeline-org-mode)
 (add-hook 'org-capture-mode-hook     #'nano-modeline-org-capture-mode)
 (add-hook 'org-agenda-mode-hook      #'nano-modeline-org-agenda-mode)
+
+;; ORG MODE
+(setq org-directory "~/wiki/org")
+(setq org-agenda-files (list "inbox.org" "projects.org" "agenda.org"))
+
+(setq org-capture-templates
+      `(("i" "Inbox" entry (file "inbox.org")
+	 ,(concat "* %?\n" "- Fecha: %U"))))
+
+(define-key global-map (kbd "C-c c") 'org-capture)
+(define-key global-map (kbd "C-c a") 'org-agenda)
