@@ -24,7 +24,7 @@
     packages."x86_64-linux".default = pkgs.emacsWithPackagesFromUsePackage {
       package = pkgs.emacs.override {withGTK3 = true;};
       config = ./init.el;
-      #alwaysEnsure = true;
+      alwaysEnsure = true;
       defaultInitFile = true;
     };
   };
