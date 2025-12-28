@@ -1,4 +1,4 @@
-;; GENERAL EMACS SETTINGS
+;; General emacs settings
 (setq inhibit-startup-message t)
 (scroll-bar-mode -1) ;; hide scrollbar
 (tool-bar-mode -1) ;; hide toolbar
@@ -37,12 +37,12 @@
 (add-hook 'org-capture-mode-hook     #'nano-modeline-org-capture-mode)
 (add-hook 'org-agenda-mode-hook      #'nano-modeline-org-agenda-mode)
 
-;; ORG MODE
+;; org mode
 (setq org-directory "~/wiki/org")
 (setq org-agenda-files (list "inbox.org" "projects.org" "agenda.org"))
 
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "NEXT" "WAIT(@)" "|" "DONE(@)" "CANCELLED(@)")))
+      '((sequence "TODO(t)" "NEXT" "PROG" "WAIT(@)" "|" "DONE(@)" "CANCELLED(@)")))
 
 (setq org-capture-templates
       `(("i" "Inbox" entry (file "inbox.org")
@@ -61,9 +61,11 @@
       '(("t" "Today"
 	 ((agenda "")
 	  (todo "PROG"
-		(org-agenda-overriding-header "\nOngoing tasks\n"))
+		((org-agenda-overriding-header "Ongoing tasks")))
 	  (todo "WAIT"
-		(org-agenda-overriding-header "\nBlocked tasks\n"))))))
+		((org-agenda-overriding-header "Blocked tasks")))
+	  (todo "NEXT"
+		((org-agenda-overriding-header "Next tasks")))))))
 
 (setq org-refile-use-outline-path 'file)
 (setq org-refile-targets
