@@ -41,9 +41,32 @@
 (setq org-directory "~/wiki/org")
 (setq org-agenda-files (list "inbox.org" "projects.org" "agenda.org"))
 
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "NEXT" "WAIT(@)" "|" "DONE(@)" "CANCELLED(@)")))
+
 (setq org-capture-templates
       `(("i" "Inbox" entry (file "inbox.org")
-	 ,(concat "* %?\n" "- Fecha: %U"))))
+	 ,(concat "* %?\n" "- Fecha: %U"))
+	("m" "Reunión" entry (file+headline "agenda.org" "Reuniones")
+           "* Reunión %?\n%^T")
+        ("q" "Quedada" entry (file+headline "agenda.org" "Social")
+         "* Quedada con %?\n%^T")
+	("n" "Nota de reunión" entry (file "inbox.org")
+	 "* Notas (%a)\nFecha introducida: %U\n%?")))
 
 (define-key global-map (kbd "C-c c") 'org-capture)
 (define-key global-map (kbd "C-c a") 'org-agenda)
+
+(setq org-agenda-custom-commands
+      '(("t" "Today"
+	 ((agenda "")
+	  (todo "PROG"
+		(org-agenda-overriding-header "\nOngoing tasks\n"))
+	  (todo "WAIT"
+		(org-agenda-overriding-header "\nBlocked tasks\n"))))))
+
+(setq org-refile-use-outline-path 'file)
+(setq org-refile-targets
+      '(("agenda.org" . (:level . 1))
+	("projects.org" . (:level . 1))
+	("someday.org" . (:maxlevel . 3))))
