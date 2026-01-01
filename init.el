@@ -165,3 +165,13 @@
                 org-indirect-buffer-display 'other-window ; Tab on a task expand it in a new window
                 org-outline-path-complete-in-steps nil) ; No steps in path display
   )
+
+(use-package nix-mode
+  :hook nix-mode)
+
+(use-package typescript-mode
+  :hook typescript-mode)
+
+(add-to-list 'major-mode-remap-alist
+	     '((python-mode . python-ts-mode)
+	       (typescript-mode . typescript-ts-mode)))

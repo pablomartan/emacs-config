@@ -26,6 +26,14 @@
       config = ./init.el;
       alwaysEnsure = true;
       defaultInitFile = true;
+      extraEmacsPackages = epkgs:
+        with epkgs; [
+          (treesit-grammars.with-grammars (g:
+            with g; [
+              tree-sitter-typescript
+              tree-sitter-python
+            ]))
+        ];
     };
   };
 }
