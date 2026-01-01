@@ -178,7 +178,7 @@
 
 ;; mini-buffer goodies
 (use-package vertico
-  :init (vertico-mode))
+  :hook (after-init . vertico-mode))
 
 (use-package orderless
   :custom
@@ -188,4 +188,4 @@
     (completion-pcm-leading-wildcard t)) ;; Emacs 31: partial-completion behaves like substring
 
 (use-package marginalia
-  :init (marginalia-mode))
+  :hook (after-init . marginalia-mode))
