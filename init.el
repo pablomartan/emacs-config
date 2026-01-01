@@ -175,3 +175,17 @@
 (add-to-list 'major-mode-remap-alist
 	     '((python-mode . python-ts-mode)
 	       (typescript-mode . typescript-ts-mode)))
+
+;; mini-buffer goodies
+(use-package vertico
+  :init (vertico-mode))
+
+(use-package orderless
+  :custom
+    (completion-styles '(orderless basic))
+    (completion-category-defaults nil)
+    (completion-category-overrides '((file (styles basic partial-completion))))
+    (completion-pcm-leading-wildcard t)) ;; Emacs 31: partial-completion behaves like substring
+
+(use-package marginalia
+  :init (marginalia-mode))
