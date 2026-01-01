@@ -166,11 +166,9 @@
                 org-outline-path-complete-in-steps nil) ; No steps in path display
   )
 
-(use-package nix-mode
-  :hook nix-mode)
+(use-package nix-mode)
 
-(use-package typescript-mode
-  :hook typescript-mode)
+(use-package typescript-mode)
 
 (add-to-list 'major-mode-remap-alist
 	     '((python-mode . python-ts-mode)
