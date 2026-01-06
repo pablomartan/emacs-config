@@ -192,7 +192,7 @@
 
 ;; projectile
 (use-package projectile
-  :custom (projectile-project-search-path '("~/Documentos/Programas" "~/.config/hoem-manager"))
+  :custom (projectile-project-search-path '("~/Documentos/Programas" "~/.config/home-manager"))
   :bind-keymap (("C-c C-p" . projectile-command-map)
                 ("C-c p" . projectile-command-map))
   :hook (after-init . projectile-mode))
