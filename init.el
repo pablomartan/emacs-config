@@ -122,11 +122,13 @@
 (global-hl-line-mode)
 
 ; for correct alignment on mixed fixed and variable pitch fonts
-(require 'org-indent)
-(set-face-attribute 'org-indent nil
-                    :inherit '(org-hide fixed-pitch))
+(use-package org-indent
+  :ensure nil
+  :custom (set-face-attribute 'org-indent nil
+			      :inherit '(org-hide fixed-pitch))
+  :hook org-mode)
 
-					; set some org elements to fixed pitch
+;; set some org elements to fixed pitch
 (set-face-attribute 'org-block nil
                     :foreground nil
                     :inherit 'fixed-pitch)
