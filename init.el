@@ -57,29 +57,9 @@
                     :family "FiraCode Nerd Font"
                     :weight 'light)
 
-(set-face-attribute 'org-block nil
-                    :foreground nil
-                    :inherit 'fixed-pitch)
-
-(set-face-attribute 'org-code nil
-                    :inherit '(shadow fixed-pitch))
-
-(set-face-attribute 'org-indent nil
-                    :inherit '(org-hide fixed-pitch))
-
-(set-face-attribute 'org-verbatim nil
-                    :inherit '(shadow fixed-pitch))
-
-(set-face-attribute 'org-special-keyword nil
-                    :inherit '(font-lock-comment-face fixed-pitch))
-
-(set-face-attribute 'org-meta-line nil
-                    :inherit '(font-lock-comment-face fixed-pitch))
-
-(set-face-attribute 'org-checkbox nil
-                    :inherit 'fixed-pitch)
 ;; org mode
 (use-package org
+  :ensure nil
   :custom
   (setq-default org-directory "~/wiki/org"
                 org-ellipsis " …"              ; Nicer ellipsis
@@ -127,6 +107,29 @@
 	'(("agenda.org" . (:level . 1))
           ("projects.org" . (:level . 1))
           ("someday.org" . (:maxlevel . 3))))
+
+  (set-face-attribute 'org-block nil
+                      :foreground nil
+                      :inherit 'fixed-pitch)
+
+  (set-face-attribute 'org-code nil
+                      :inherit '(shadow fixed-pitch))
+
+  (set-face-attribute 'org-indent nil
+                      :inherit '(org-hide fixed-pitch))
+
+  (set-face-attribute 'org-verbatim nil
+                      :inherit '(shadow fixed-pitch))
+
+  (set-face-attribute 'org-special-keyword nil
+                      :inherit '(font-lock-comment-face fixed-pitch))
+
+  (set-face-attribute 'org-meta-line nil
+                      :inherit '(font-lock-comment-face fixed-pitch))
+
+  (set-face-attribute 'org-checkbox nil
+                      :inherit 'fixed-pitch)
+  
   :hook nano-modeline-org)
 
 (define-key global-map (kbd "C-c c") 'org-capture)
@@ -194,3 +197,11 @@
   :bind-keymap (("C-c C-p" . projectile-command-map)
                 ("C-c p" . projectile-command-map))
   :hook (after-init . projectile-mode))
+
+;; start customization
+(require 'lilypond-mode)
+(autoload 'LilyPond-mode "lilypond-mode")
+(setq auto-mode-alist
+      (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
+
+(add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
