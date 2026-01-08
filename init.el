@@ -1,4 +1,4 @@
-;; GENERAL EMACS SETTINGS
+;; General emacs settings
 (setq inhibit-startup-message t)
 (scroll-bar-mode -1) ;; hide scrollbar
 (tool-bar-mode -1) ;; hide toolbar
@@ -12,181 +12,185 @@
 (global-display-line-numbers-mode t) 
 (setq display-line-numbers-type 'visual)
 
-;; hide line numbers in certain modes
-(dolist
-  (mode '(term-mode-hook eshell-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
-(load-theme 'modus-operandi)
+;; set up package management
+(require 'package)
+(package-initialize)
 
-;; FONT
-(set-face-attribute 'default nil :font "JetBrainsMono Nerd Font")
-(set-face-attribute 'fixed-pitch nil :family "JetBrainsMono Nerd Font")
-(set-face-attribute 'line-number nil :family "JetBrainsMono Nerd Font")
-(set-face-attribute 'variable-pitch nil :family "Inter Nerd Font" :height 1.18)
+;; nano-theme
+(use-package nano-theme
+  :vc (:url "https://github.com/rougier/nano-theme.git"
+            :main-file "nano-theme.el"
+            :rev :newest
+            :branch "rewrite"))
 
-;; make sure use-package macro is present and usable
-(require 'use-package)
-(setq use-package-always-ensure t)
+(load-theme 'nano t)
 
-;; start emacs server
-(server-start)
-(require 'org-protocol)
+;; nano-layout
+(use-package nano-modeline
+  :vc (:url "https://github.com/rougier/nano-modeline.git"
+            :rev :newest
+            :branch "master"))
 
-;; CUSTOM PACKAGES
+(add-hook 'prog-mode-hook            #'nano-modeline-prog-mode)
+(add-hook 'text-mode-hook            #'nano-modeline-text-mode)
+(add-hook 'org-capture-mode-hook     #'nano-modeline-org-capture-mode)
+(add-hook 'org-agenda-mode-hook      #'nano-modeline-org-agenda-mode)
 
-;; BETTER COMPLETION: vertico
-(use-package vertico
-  :ensure t
-  :bind (:map vertico-map
-    ("C-j" . vertico-next)
-    ("C-k" . vertico-previous)
-    ("C-f" . vertico-exit)
-  :map minibuffer-local-map
-    ("M-h" . backward-kill-word))
+(setq-default initial-major-mode 'text-mode   ; Initial mode is text
+              default-major-mode 'text-mode)  ; Default mode is text
+
+(set-face-attribute 'default nil
+                    :family "Roboto Mono"
+                    :weight 'light
+                    :height 110)
+
+(set-face-attribute 'bold nil
+                    :family "Roboto Mono"
+                    :weight 'regular)
+
+(set-face-attribute 'italic nil
+                    :family "Victor Mono"
+                    :weight 'semilight
+                    :slant 'italic)
+
+(set-face-attribute 'fixed-pitch nil
+                    :family "FiraCode Nerd Font"
+                    :weight 'light)
+
+(set-face-attribute 'org-block nil
+                    :foreground nil
+                    :inherit 'fixed-pitch)
+
+(set-face-attribute 'org-code nil
+                    :inherit '(shadow fixed-pitch))
+
+(set-face-attribute 'org-indent nil
+                    :inherit '(org-hide fixed-pitch))
+
+(set-face-attribute 'org-verbatim nil
+                    :inherit '(shadow fixed-pitch))
+
+(set-face-attribute 'org-special-keyword nil
+                    :inherit '(font-lock-comment-face fixed-pitch))
+
+(set-face-attribute 'org-meta-line nil
+                    :inherit '(font-lock-comment-face fixed-pitch))
+
+(set-face-attribute 'org-checkbox nil
+                    :inherit 'fixed-pitch)
+;; org mode
+(use-package org
   :custom
-    (vertico-cycle t)
-  :init
-    (vertico-mode))
+  (setq-default org-directory "~/wiki/org"
+                org-ellipsis " …"              ; Nicer ellipsis
+                org-tags-column 1              ; Tags next to header title
+                org-hide-emphasis-markers t    ; Hide markers
+                org-cycle-separator-lines 2    ; Number of empty lines between sections
+                org-use-tag-inheritance nil    ; Tags ARE NOT inherited 
+                org-use-property-inheritance t ; Properties ARE inherited
+                org-indent-indentation-per-level 2 ; Indentation per level
+                org-link-use-indirect-buffer-for-internals t ; Indirect buffer for internal links
+                org-fontify-quote-and-verse-blocks t ; Specific face for quote and verse blocks
+                org-return-follows-link nil    ; Follow links when hitting return
+                org-image-actual-width nil     ; Resize image to window width
+                org-indirect-buffer-display 'other-window ; Tab on a task expand it in a new window
+                org-outline-path-complete-in-steps nil) ; No steps in path display
 
-;; MARGINALIA: Enable rich annotations
-(use-package marginalia
-  :bind (:map minibuffer-local-map
-          ("M-A" . marginalia-cycle))
-  :init
-    (marginalia-mode))
+  (setq org-directory "~/wiki/org")
+  (setq org-agenda-files (list "inbox.org" "projects.org" "agenda.org"))
 
-;; ORDERLESS: Add fuzzy-find-like functionality
-(use-package orderless
-  :ensure t
-  :custom
-    (completion-styles '(orderless basic))
-    (completion-category-overrides '((file (styles basic partial-completion)))))
+  (setq org-todo-keywords
+	'((sequence "TODO(t)" "NEXT" "PROG" "WAIT(@)" "|" "DONE(@)" "CANCELLED(@)")))
 
-;; RAINBOW DELIMITERS
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
+  (setq org-capture-templates
+	`(("i" "Inbox" entry (file "inbox.org")
+           ,(concat "* %?\n" "- Fecha: %U"))
+          ("m" "Reunión" entry (file+headline "agenda.org" "Reuniones")
+           "* Reunión %?\n%^T")
+          ("q" "Quedada" entry (file+headline "agenda.org" "Social")
+           "* Quedada con %?\n%^T")
+          ("n" "Nota de reunión" entry (file "inbox.org")
+           "* Notas (%a)\nFecha introducida: %U\n%?")))
 
-;; TYPESCRIPT MODE
-(use-package typescript-mode)
+  (setq org-agenda-custom-commands
+	'(("t" "Today"
+           ((agenda "")
+            (todo "PROG"
+                  ((org-agenda-overriding-header "Ongoing tasks")))
+            (todo "WAIT"
+                  ((org-agenda-overriding-header "Blocked tasks")))
+            (todo "NEXT"
+                  ((org-agenda-overriding-header "Next tasks")))))))
 
-;; NIX MODE
+  (setq org-refile-use-outline-path 'file)
+  (setq org-refile-targets
+	'(("agenda.org" . (:level . 1))
+          ("projects.org" . (:level . 1))
+          ("someday.org" . (:maxlevel . 3))))
+  :hook nano-modeline-org)
+
+(define-key global-map (kbd "C-c c") 'org-capture)
+(define-key global-map (kbd "C-c a") 'org-agenda)
+
+(require 'frame)
+
+;; Default frame settings
+(setq default-frame-alist '((min-height . 1)  '(height . 45)
+                            (min-width  . 1)  '(width  . 81)
+                            (vertical-scroll-bars . nil)
+                            (internal-border-width . 16)
+                            (left-fringe . 0)
+                            (right-fringe . 0)
+                            (tool-bar-lines . 0)
+                            (menu-bar-lines . 1)))
+
+;; Default frame settings
+(setq initial-frame-alist default-frame-alist)
+
+(setq-default window-divider-default-right-width 2
+              window-divider-default-places 'right-only
+              left-margin-width 0
+              right-margin-width 0)
+              ;; window-combination-resize nil) ; Do not resize windows proportionally
+
+(window-divider-mode 1)
+
+; highlight current line
+(require 'hl-line)
+(global-hl-line-mode)
+
+; for correct alignment on mixed fixed and variable pitch fonts
+(use-package org-indent
+  :ensure nil
+  :custom (set-face-attribute 'org-indent nil
+			      :inherit '(org-hide fixed-pitch))
+  :hook org-mode)
+
 (use-package nix-mode)
 
-;; TREE-SITTER
-(setq major-mode-remap-alist
- '((bash-mode . bash-ts-mode)
-   (bibtex-mode . bibtex-ts-mode)
-   (css-mode . css-ts-mode)
-   (dockerfile-mode . dockerfile-ts-mode)
-   (elisp-mode . elisp-ts-mode)
-   (html-mode . html-ts-mode)
-   (json-mode . json-ts-mode)
-   (latex-mode . latex-ts-mode)
-   (ledger-mode . ledger-ts-mode)
-   (lua-mode . lua-ts-mode)
-   (markdown-mode . markdown-ts-mode)
-   (python-mode . python-ts-mode)
-   (sql-mode . sql-ts-mode)
-   (typescript-mode . typescript-ts-mode)))
+(use-package typescript-mode)
 
-;; ORG-MODE
-(setq org-default-notes-file "~/wiki/org/inbox.org")
-(setq org-agenda-files '("~/wiki/org/projects.org"))
-(setq org-refile-targets
-  `((nil :maxlevel . 3)
-	(,(directory-files-recursively "~/wiki/org/" "^[a-z]*.org$") :maxlevel . 3))) ;; 
-(defvar custom-capture-templates
-  '(("t" "Todo" entry (file+headline "~/wiki/org/inbox.org" "Tasks")
-     "** TODO %? \n")
-    ("n" "Plain note" entry (file+headline "~/wiki/org/inbox.org" "Notes")
-     "** %? \n")
-    ("p" "Protocol" entry (file+headline "~/wiki/org/inbox.org" "Notes")
-        "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-    ("L" "Protocol Link" entry (file+headline "~/wiki/org/inbox.org" "Notes")
-        "* %? [[%:link][%:description]] \nCaptured On: %U")))
+(add-to-list 'major-mode-remap-alist
+	     '((python-mode . python-ts-mode)
+	       (typescript-mode . typescript-ts-mode)))
 
-(keymap-global-set "C-c c" 'org-capture)
-(keymap-global-set "C-c a" 'org-agenda)
-(keymap-global-set "C-c j" 'org-store-link)
+;; mini-buffer goodies
+(use-package vertico
+  :hook (after-init . vertico-mode))
 
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "PROG" "WAIT" "|" "DONE(@)" "CANCELLED(@)")))
-(setq org-hide-emphasis-markers t)
-(setq org-hide-leading-stars t)
-(setq org-use-sub-superscripts "{}")
-(require 'ox-md)
+(use-package orderless
+  :custom
+    (completion-styles '(orderless basic))
+    (completion-category-defaults nil)
+    (completion-category-overrides '((file (styles basic partial-completion))))
+    (completion-pcm-leading-wildcard t)) ;; Emacs 31: partial-completion behaves like substring
 
-;; ORG EXTRAS
-;; Resize Org headings
-(dolist (face '((org-level-1 . 1.35)
-                (org-level-2 . 1.3)
-                (org-level-3 . 1.2)
-                (org-level-4 . 1.1)
-                (org-level-5 . 1.1)
-                (org-level-6 . 1.1)
-                (org-level-7 . 1.1)
-                (org-level-8 . 1.1)))
-  (set-face-attribute (car face) nil :font "Inter Nerd Font" :weight 'bold :height (cdr face)))
+(use-package marginalia
+  :hook (after-init . marginalia-mode))
 
-;; Make the document title a bit bigger
-(set-face-attribute 'org-document-title nil :font "Inter Nerd Font" :weight 'bold :height 1.8)
-
-(require 'org-indent)
-(set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
-
-(set-face-attribute 'org-block nil            :foreground nil :inherit 'fixed-pitch :height 0.85)
-(set-face-attribute 'org-code nil             :inherit '(shadow fixed-pitch) :height 0.85)
-(set-face-attribute 'org-indent nil           :inherit '(org-hide fixed-pitch) :height 0.85)
-(set-face-attribute 'org-verbatim nil         :inherit '(shadow fixed-pitch) :height 0.85)
-(set-face-attribute 'org-special-keyword nil  :inherit '(font-lock-comment-face fixed-pitch))
-(set-face-attribute 'org-meta-line nil        :inherit '(font-lock-comment-face fixed-pitch))
-(set-face-attribute 'org-checkbox nil         :inherit 'fixed-pitch)
-
-(add-hook 'org-mode-hook 'variable-pitch-mode)
-
-(plist-put org-format-latex-options :scale 2)
-
-(setq org-adapt-indentation t
-      org-hide-leading-stars t
-      org-hide-emphasis-markers t
-      org-pretty-entities t
-	  org-ellipsis "  ·")
-
-(setq org-src-fontify-natively t
-	  org-src-tab-acts-natively t
-      org-edit-src-content-indentation 0)
-
-(add-hook 'org-mode-hook 'visual-line-mode)
-
-(use-package olivetti
-             :diminish
-             :commands olivetti-mode
-             :config
-             (setq olivetti-body-width 0.50)
-             (setq olivetti-minimum-body-width 100))
-
-(add-hook 'org-mode-hook 'olivetti-mode)
-
-(use-package undo-tree)
-(use-package undo-fu)
-(global-undo-tree-mode)
-
-;; start customization
-(require 'lilypond-mode)
-(autoload 'LilyPond-mode "lilypond-mode")
-(setq auto-mode-alist
-      (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
-
-(add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
-(setq org-agenda-custom-commands
-      '(("n" "Próximas tareas"
-         ((tags-todo "+TODO=\"PROG\""
-                     ((org-agenda-overriding-header "Tareas en curso")))
-          (tags-todo "+TODO=\"WAIT\""
-                     ((org-agenda-overriding-header "Tareas en espera")))
-          (todo "TODO"
-                ((org-agenda-overriding-header "Tareas por empezar")))))))
-;; end customization
-
-(setq org-capture-templates
-      custom-capture-templates)
+;; projectile
+(use-package projectile
+  :custom (projectile-project-search-path '("~/Documentos/Programas" "~/.config/home-manager"))
+  :bind-keymap (("C-c C-p" . projectile-command-map)
+                ("C-c p" . projectile-command-map))
+  :hook (after-init . projectile-mode))

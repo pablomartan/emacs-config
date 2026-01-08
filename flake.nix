@@ -31,22 +31,9 @@
           [
             (treesit-grammars.with-grammars (g:
               with g; [
-                tree-sitter-bash
-                tree-sitter-bibtex
-                tree-sitter-css
-                tree-sitter-dockerfile
-                tree-sitter-elisp
-                tree-sitter-html
-                tree-sitter-json
-                tree-sitter-latex
-                tree-sitter-ledger
-                tree-sitter-lua
-                tree-sitter-markdown
-                tree-sitter-nix
-                tree-sitter-python
-                tree-sitter-sql
                 tree-sitter-tsx
                 tree-sitter-typescript
+                tree-sitter-python
               ]))
           ]
           ++ [pkgs.lilypond];
