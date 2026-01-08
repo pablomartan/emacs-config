@@ -30,6 +30,7 @@
         with epkgs; [
           (treesit-grammars.with-grammars (g:
             with g; [
+              tree-sitter-tsx
               tree-sitter-typescript
               tree-sitter-python
             ]))
