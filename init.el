@@ -33,7 +33,6 @@
 
 (add-hook 'prog-mode-hook            #'nano-modeline-prog-mode)
 (add-hook 'text-mode-hook            #'nano-modeline-text-mode)
-(add-hook 'org-mode-hook             #'nano-modeline-org-mode)
 (add-hook 'org-capture-mode-hook     #'nano-modeline-org-capture-mode)
 (add-hook 'org-agenda-mode-hook      #'nano-modeline-org-agenda-mode)
 
@@ -127,7 +126,8 @@
   (setq org-refile-targets
 	'(("agenda.org" . (:level . 1))
           ("projects.org" . (:level . 1))
-          ("someday.org" . (:maxlevel . 3)))))
+          ("someday.org" . (:maxlevel . 3))))
+  :hook nano-modeline-org)
 
 (define-key global-map (kbd "C-c c") 'org-capture)
 (define-key global-map (kbd "C-c a") 'org-agenda)
