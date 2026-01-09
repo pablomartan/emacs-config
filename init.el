@@ -12,24 +12,13 @@
 (global-display-line-numbers-mode t) 
 (setq display-line-numbers-type 'visual)
 
-;; set up package management
-(require 'package)
-(package-initialize)
-
 ;; nano-theme
-(use-package nano-theme
-  :vc (:url "https://github.com/rougier/nano-theme.git"
-            :main-file "nano-theme.el"
-            :rev :newest
-            :branch "rewrite"))
+(use-package nano-theme)
 
 (load-theme 'nano t)
 
 ;; nano-layout
-(use-package nano-modeline
-  :vc (:url "https://github.com/rougier/nano-modeline.git"
-            :rev :newest
-            :branch "master"))
+(use-package nano-modeline)
 
 (add-hook 'prog-mode-hook            #'nano-modeline-prog-mode)
 (add-hook 'text-mode-hook            #'nano-modeline-text-mode)
@@ -186,3 +175,5 @@
       (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
 
 (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
+
+
