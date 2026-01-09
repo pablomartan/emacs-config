@@ -13,17 +13,18 @@
 (setq display-line-numbers-type 'visual)
 
 ;; nano-theme
-(use-package nano-theme)
-
-(load-theme 'nano t)
+(use-package nano-theme
+             :init (load-theme 'nano-light t)
+             :hook
+             (after-init . (lambda () (load-theme 'nano-light t)))) 
 
 ;; nano-layout
-(use-package nano-modeline)
-
-(add-hook 'prog-mode-hook            #'nano-modeline-prog-mode)
-(add-hook 'text-mode-hook            #'nano-modeline-text-mode)
-(add-hook 'org-capture-mode-hook     #'nano-modeline-org-capture-mode)
-(add-hook 'org-agenda-mode-hook      #'nano-modeline-org-agenda-mode)
+(use-package nano-modeline
+    :hook
+    ((prog-mode . nano-modeline-prog-mode)
+    (text-mode . nano-modeline-text-mode)
+    (org-capture-mode . nano-modeline-org-capture-mode)
+    (org-agenda-mode . nano-modeline-org-agenda-mode)))
 
 (setq-default initial-major-mode 'text-mode   ; Initial mode is text
               default-major-mode 'text-mode)  ; Default mode is text
@@ -175,5 +176,3 @@
       (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
 
 (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
-
-
