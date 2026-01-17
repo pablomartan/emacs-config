@@ -36,20 +36,20 @@
 
 ;; nano-theme
 (use-package nano-theme
-             :vc (:url "https://github.com/rougier/nano-theme"
-                       :branch "rewrite"
-                       :rev :newest)
+             ;; :vc (:url "https://github.com/rougier/nano-theme"
+             ;;           :branch "rewrite"
+             ;;           :rev :newest)
              :hook
              (after-make-frame-functions . (lambda (frame)
                                              (with-selected-frame frame
-                                                                  (load-theme 'nano t))))
+                                                                  (load-theme 'nano-light t))))
              (after-init . (lambda ()
-                             (load-theme 'nano t))))
+                             (load-theme 'nano-light t))))
 
 ;; nano-layout
 (use-package nano-modeline
-             :vc (:url "https://github.com/rougier/nano-modeline"
-                       :rev :newest)
+             ;; :vc (:url "https://github.com/rougier/nano-modeline"
+             ;;           :rev :newest)
              :hook
              ((prog-mode . nano-modeline-prog-mode)
               (text-mode . nano-modeline-text-mode)
