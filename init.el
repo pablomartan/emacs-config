@@ -11,6 +11,7 @@
                                     (right-fringe . 0)
                                     (tool-bar-lines . 0)))
              (initial-frame-alist default-frame-alist)
+             (global-hl-line-mode t)
              :bind (("C-c c" . 'org-capture)
                     ("C-c a" . 'org-agenda))
              :custom-face
@@ -111,10 +112,6 @@
              (org-checkbox ((nil (:inherit 'fixed-pitch))))
 
              :hook nano-modeline-org)
-
-; highlight current line
-(require 'hl-line)
-(global-hl-line-mode)
 
 ; for correct alignment on mixed fixed and variable pitch fonts
 (use-package org-indent
