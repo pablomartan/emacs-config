@@ -124,11 +124,13 @@
   :ensure t)
 
 (use-package typescript-mode
-  :ensure t)
+  :ensure t
+  :mode (("\\.tsx\\'") . tsx-ts)
+  :hook typescript-ts)
 
-(add-to-list 'major-mode-remap-alist
-             '((python-mode . python-ts-mode)
-               (typescript-mode . typescript-ts-mode)))
+(use-package python-mode
+  :ensure nil
+  :hook python-ts)
 
 ;; mini-buffer goodies
 (use-package vertico
