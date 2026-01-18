@@ -1,51 +1,61 @@
-;; General emacs settings
-(setq inhibit-startup-message t)
-(scroll-bar-mode -1) ;; hide scrollbar
-(tool-bar-mode -1) ;; hide toolbar
-(tooltip-mode -1) ;; disable tooltips
-(set-fringe-mode 10)
-(menu-bar-mode -1) ;; disable menubar
-(setq visible-bell t) ;; unset sound bell
-
-;; display line number
-(column-number-mode)
-(global-display-line-numbers-mode t) 
-(setq display-line-numbers-type 'visual)
+(use-package emacs
+  :custom
+  (inhibit-startup-message t)
+  (visible-bell t)
+  (display-line-numbers-type 'visual)
+  (default-frame-alist '((min-height . 1)'(height . 45)
+                         (min-width  . 1)  '(width  . 81)
+                         (vertical-scroll-bars . nil)
+                         (internal-border-width . 16)
+                         (left-fringe . 0)
+                         (right-fringe . 0)
+                         (tool-bar-lines . 0)))
+  (initial-frame-alist default-frame-alist)
+  (global-hl-line-mode t)
+  :bind (("C-c c" . 'org-capture)
+         ("C-c a" . 'org-agenda))
+  :custom-face
+  (default ((nil (:family "Roboto Mono" :weight light :height 110))))
+  (bold ((nil (:family "Roboto Mono" :weight regular))))
+  (italic ((nil (:family "Victor Mono" :weight semilight :slant italic))))
+  (fixed-pitch ((nil (:family "FiraCode Nerd Font" :weight light))))
+  :hook
+  (after-make-frame-functions . (lambda (f)
+                                  (with-selected-frame f
+                                    ((window-divider-default-right-width 2)
+                                     (window-divider-default-places 'right-only)
+                                     (left-margin-width 0)
+                                     (right-margin-width 0)))))
+  (after-init . (lambda ()
+                  (scroll-bar-mode -1)
+                  (tool-bar-mode -1)
+                  (tooltip-mode -1)
+                  (menu-bar-mode -1)
+                  (set-fringe-mode 10)
+                  (column-number-mode)
+                  (global-display-line-numbers-mode t))))
 
 ;; nano-theme
 (use-package nano-theme
-             :init (load-theme 'nano-light t)
-             :hook
-             (after-init . (lambda () (load-theme 'nano-light t)))) 
+  ;; :vc (:url "https://github.com/rougier/nano-theme"
+  ;;           :branch "rewrite"
+  ;;           :rev :newest)
+  :hook
+  (after-make-frame-functions . (lambda (frame)
+                                  (with-selected-frame frame
+                                    (load-theme 'nano-light t))))
+  (after-init . (lambda ()
+                  (load-theme 'nano-light t))))
 
 ;; nano-layout
 (use-package nano-modeline
-    :hook
-    ((prog-mode . nano-modeline-prog-mode)
-    (text-mode . nano-modeline-text-mode)
-    (org-capture-mode . nano-modeline-org-capture-mode)
-    (org-agenda-mode . nano-modeline-org-agenda-mode)))
-
-(setq-default initial-major-mode 'text-mode   ; Initial mode is text
-              default-major-mode 'text-mode)  ; Default mode is text
-
-(set-face-attribute 'default nil
-                    :family "Roboto Mono"
-                    :weight 'light
-                    :height 110)
-
-(set-face-attribute 'bold nil
-                    :family "Roboto Mono"
-                    :weight 'regular)
-
-(set-face-attribute 'italic nil
-                    :family "Victor Mono"
-                    :weight 'semilight
-                    :slant 'italic)
-
-(set-face-attribute 'fixed-pitch nil
-                    :family "FiraCode Nerd Font"
-                    :weight 'light)
+  ;; :vc (:url "https://github.com/rougier/nano-modeline"
+  ;;           :rev :newest)
+  :hook
+  ((prog-mode . nano-modeline-prog-mode)
+   (text-mode . nano-modeline-text-mode)
+   (org-capture-mode . nano-modeline-org-capture-mode)
+   (org-agenda-mode . nano-modeline-org-agenda-mode)))
 
 ;; org mode
 (use-package org
@@ -79,7 +89,7 @@
       "* Notas (%a)\nFecha introducida: %U\n%?")))
   (org-agenda-custom-commands
    '(("t" "Today"
-      ((agenda "")
+      ((agenda "" ((org-agenda-span 1)))
        (todo "PROG"
              ((org-agenda-overriding-header "Ongoing tasks")))
        (todo "WAIT"
@@ -91,7 +101,7 @@
    '(("agenda.org" . (:level . 1))
      ("projects.org" . (:maxlevel . 2))
      ("someday.org" . (:maxlevel . 3))))
-  
+
   :custom-face
   (org-block ((nil (:foreground nil :inherit 'fixed-pitch))))
   (org-code ((nil (:inherit (shadow fixed-pitch)))))
@@ -103,71 +113,52 @@
 
   :hook nano-modeline-org)
 
-(define-key global-map (kbd "C-c c") 'org-capture)
-(define-key global-map (kbd "C-c a") 'org-agenda)
-
-(require 'frame)
-
-;; Default frame settings
-(setq default-frame-alist '((min-height . 1)  '(height . 45)
-                            (min-width  . 1)  '(width  . 81)
-                            (vertical-scroll-bars . nil)
-                            (internal-border-width . 16)
-                            (left-fringe . 0)
-                            (right-fringe . 0)
-                            (tool-bar-lines . 0)
-                            (menu-bar-lines . 1)))
-
-;; Default frame settings
-(setq initial-frame-alist default-frame-alist)
-
-(setq-default window-divider-default-right-width 2
-              window-divider-default-places 'right-only
-              left-margin-width 0
-              right-margin-width 0)
-              ;; window-combination-resize nil) ; Do not resize windows proportionally
-
-(window-divider-mode 1)
-
-; highlight current line
-(require 'hl-line)
-(global-hl-line-mode)
-
-; for correct alignment on mixed fixed and variable pitch fonts
+					; for correct alignment on mixed fixed and variable pitch fonts
 (use-package org-indent
   :ensure nil
   :custom (set-face-attribute 'org-indent nil
-			      :inherit '(org-hide fixed-pitch))
+                              :inherit '(org-hide fixed-pitch))
   :hook org-mode)
 
-(use-package nix-mode)
+(use-package nix-mode
+  :ensure t)
 
-(use-package typescript-mode)
+(use-package typescript-mode
+  :ensure t
+  :mode (("\\.tsx\\'") . tsx-ts)
+  :hook typescript-ts)
 
-(add-to-list 'major-mode-remap-alist
-	     '((python-mode . python-ts-mode)
-	       (typescript-mode . typescript-ts-mode)))
+(use-package python-mode
+  :ensure nil
+  :hook python-ts)
 
 ;; mini-buffer goodies
 (use-package vertico
+  :ensure t
   :hook (after-init . vertico-mode))
 
 (use-package orderless
+  :ensure t
   :custom
-    (completion-styles '(orderless basic))
-    (completion-category-defaults nil)
-    (completion-category-overrides '((file (styles basic partial-completion))))
-    (completion-pcm-leading-wildcard t)) ;; Emacs 31: partial-completion behaves like substring
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles basic partial-completion))))
+  (completion-pcm-leading-wildcard t)) ;; Emacs 31: partial-completion behaves like substring
 
 (use-package marginalia
+  :ensure t
   :hook (after-init . marginalia-mode))
 
 ;; projectile
 (use-package projectile
-  :custom (projectile-project-search-path '("~/Documentos/Programas" "~/.config/home-manager"))
-  :bind-keymap (("C-c C-p" . projectile-command-map)
-                ("C-c p" . projectile-command-map))
-  :hook (after-init . projectile-mode))
+  :custom
+  (projectile-project-search-path
+   '("~/Documentos/Programas" "~/.config/home-manager"))
+  :bind-keymap
+  (("C-c C-p" . projectile-command-map)
+   ("C-c p" . projectile-command-map))
+  :hook
+  (after-init . projectile-mode))
 
 ;; start customization
 (require 'lilypond-mode)
