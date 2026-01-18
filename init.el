@@ -93,9 +93,29 @@
        (todo "PROG"
              ((org-agenda-overriding-header "Ongoing tasks")))
        (todo "WAIT"
-             ((org-agenda-overriding-header "Blocked tasks")))
+	     ((org-agenda-overriding-header "Waiting tasks")))))
+     ("d" "Daily review"
+      ((todo "NEXT"
+	     ((org-agenda-overriding-header "Next tasks")))
+       (todo "WAIT"
+	     ((org-agenda-overriding-header "Waiting tasks")))
+       (todo "PROG"
+	     ((org-agenda-overriding-header "Ongoing tasks")))
+       (todo "TODO"
+	     ((org-agenda-overriding-header "Todo tasks")))))
+     ("w" "Weekly review"
+      ((agenda "" ((org-agenda-start-on-weekday 0)))
+       (todo "WAIT"
+             ((org-agenda-overriding-header "Waiting tasks")))
        (todo "NEXT"
-             ((org-agenda-overriding-header "Next tasks")))))))
+	     ((org-agenda-overriding-header "Next tasks")))
+       (todo "PROG"
+	     ((org-agenda-overriding-header "Ongoing tasks")))
+       (todo "TODO"
+	     ((org-agenda-overriding-header "Todo in projects and inbox")))
+       (todo "TODO"
+	     ((org-agenda-files '("~/wiki/org/someday.org"))
+	      (org-agenda-overriding-header "Todo in 'Someday'")))))))
   (org-refile-use-outline-path 'file)
   (org-refile-targets
    '(("agenda.org" . (:level . 1))
@@ -125,7 +145,7 @@
 
 (use-package typescript-mode
   :ensure t
-  :mode (("\\.tsx\\'") . tsx-ts)
+  :mode ("\\.tsx\\'" . tsx-ts)
   :hook typescript-ts)
 
 (use-package python-mode
