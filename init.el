@@ -180,6 +180,12 @@
   :hook
   (after-init . projectile-mode))
 
+;; olivetti mode for org-mode
+(use-package olivetti
+  :custom ((olivetti-body-width 0.75)
+	   (olivetti-style 'margins))
+  :hook org-mode)
+
 ;; start customization
 (require 'lilypond-mode)
 (autoload 'LilyPond-mode "lilypond-mode")
