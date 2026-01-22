@@ -159,3 +159,9 @@
    ("C-c p" . projectile-command-map))
   :hook
   (after-init . projectile-mode))
+
+;; olivetti mode for org-mode
+(use-package olivetti
+  :custom ((olivetti-body-width 0.75)
+	   (olivetti-style 'margins))
+  :hook org-mode)
