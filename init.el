@@ -125,7 +125,7 @@
 
 (use-package typescript-mode
   :ensure t
-  :mode (("\\.tsx\\'") . tsx-ts)
+  :mode ("\\.tsx\\'" . tsx-ts)
   :hook typescript-ts)
 
 (use-package python-mode
