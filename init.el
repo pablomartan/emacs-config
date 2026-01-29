@@ -90,6 +90,8 @@
   (org-agenda-custom-commands
    '(("t" "Today"
       ((agenda "" ((org-agenda-span 1)))
+       (todo "NEXT"
+             ((org-agenda-overriding-header "Next tasks")))
        (todo "PROG"
              ((org-agenda-overriding-header "Ongoing tasks")))
        (todo "WAIT"
