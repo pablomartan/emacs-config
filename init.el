@@ -15,10 +15,10 @@
   :bind (("C-c c" . 'org-capture)
          ("C-c a" . 'org-agenda))
   :custom-face
-  (default ((nil (:family "Roboto Mono" :weight light :height 110))))
-  (bold ((nil (:family "Roboto Mono" :weight regular))))
-  (italic ((nil (:family "Victor Mono" :weight semilight :slant italic))))
-  (fixed-pitch ((nil (:family "FiraCode Nerd Font" :weight light))))
+  (default ((nil (:family "IBM Plex Mono" :weight light :height 110))))
+  (bold ((nil (:family "IBM Plex Mono" :weight regular))))
+  (italic ((nil (:family "IBM Plex Mono" :slant italic))))
+  (fixed-pitch ((nil (:family "IBM Plex Mono"))))
   :hook
   (after-make-frame-functions . (lambda (f)
                                   (with-selected-frame f
@@ -132,6 +132,14 @@
   (org-special-keyword ((nil (:inherit (font-lock-comment-face fixed-pitch)))))
   (org-meta-line ((nil (:inherit (font-lock-comment-face fixed-pitch)))))
   (org-checkbox ((nil (:inherit 'fixed-pitch))))
+  (org-level-1 ((nil (:weight regular))))
+  (org-level-2 ((nil (:weight regular))))
+  (org-level-3 ((nil (:weight regular))))
+  (org-level-4 ((nil (:weight regular))))
+  (org-level-5 ((nil (:weight regular))))
+  (org-level-6 ((nil (:weight regular))))
+  (org-level-7 ((nil (:weight regular))))
+  (org-level-8 ((nil (:weight regular))))
 
   :hook nano-modeline-org)
 
