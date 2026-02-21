@@ -182,3 +182,7 @@
 
 ;; magit
 (use-package magit)
+
+;; direnv
+(use-package direnv
+  :hook (after-init . direnv-mode))
