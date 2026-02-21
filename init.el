@@ -140,25 +140,20 @@
                               :inherit '(org-hide fixed-pitch))
   :hook org-mode)
 
-(use-package nix-mode
-  :ensure t)
+(use-package nix-mode)
 
 (use-package typescript-mode
-  :ensure t
   :mode ("\\.tsx\\'" . tsx-ts-mode)
   :hook typescript-ts-mode)
 
 (use-package python-mode
-  :ensure nil
   :hook python-ts)
 
 ;; mini-buffer goodies
 (use-package vertico
-  :ensure t
   :hook (after-init . vertico-mode))
 
 (use-package orderless
-  :ensure t
   :custom
   (completion-styles '(orderless basic))
   (completion-category-defaults nil)
@@ -166,7 +161,6 @@
   (completion-pcm-leading-wildcard t)) ;; Emacs 31: partial-completion behaves like substring
 
 (use-package marginalia
-  :ensure t
   :hook (after-init . marginalia-mode))
 
 ;; projectile
