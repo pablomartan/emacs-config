@@ -27,14 +27,20 @@
       alwaysEnsure = true;
       defaultInitFile = true;
       extraEmacsPackages = epkgs:
-        with epkgs; [
-          (treesit-grammars.with-grammars (g:
-            with g; [
-              tree-sitter-tsx
-              tree-sitter-typescript
-              tree-sitter-python
-            ]))
-        ];
+        with epkgs;
+          [
+            (treesit-grammars.with-grammars (g:
+              with g; [
+                tree-sitter-tsx
+                tree-sitter-typescript
+                tree-sitter-python
+              ]))
+          ]
+          ++ [
+            pkgs.pyright
+            pkgs.typescript-language-server
+            pkgs.eslint_d
+          ];
     };
   };
 }
