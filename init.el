@@ -40,10 +40,12 @@
   :hook
   (after-make-frame-functions . (lambda (frame)
                                   (with-selected-frame frame
-				    ;; (load-theme 'almost-mono-black t)
-				    ;; (load-theme 'almost-mono-gray t)
-				    ;; (load-theme 'almost-mono-white t)
-                                    ((load-theme 'almost-mono-cream t))))))
+                                    ;; (load-theme 'almost-mono-black t)
+                                    ;; (load-theme 'almost-mono-gray t)
+                                    ;; (load-theme 'almost-mono-white t)
+                                    ((load-theme 'almost-mono-white t)))))
+  (after-init . (lambda ()
+                  (load-theme 'almost-mono-white))))
 
 ;; org mode
 (use-package org
