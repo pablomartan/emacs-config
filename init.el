@@ -26,6 +26,7 @@
                                      (window-divider-default-places 'right-only)
                                      (left-margin-width 0)
                                      (right-margin-width 0)))))
+
   (after-init . (lambda ()
                   (scroll-bar-mode -1)
                   (tool-bar-mode -1)
@@ -35,27 +36,14 @@
                   (column-number-mode)
                   (global-display-line-numbers-mode t))))
 
-;; nano-theme
-(use-package nano-theme
-  ;; :vc (:url "https://github.com/rougier/nano-theme"
-  ;;           :branch "rewrite"
-  ;;           :rev :newest)
+(use-package almost-mono-themes
   :hook
   (after-make-frame-functions . (lambda (frame)
                                   (with-selected-frame frame
-                                    (load-theme 'nano-light t))))
-  (after-init . (lambda ()
-                  (load-theme 'nano-light t))))
-
-;; nano-layout
-(use-package nano-modeline
-  ;; :vc (:url "https://github.com/rougier/nano-modeline"
-  ;;           :rev :newest)
-  :hook
-  ((prog-mode . nano-modeline-prog-mode)
-   (text-mode . nano-modeline-text-mode)
-   (org-capture-mode . nano-modeline-org-capture-mode)
-   (org-agenda-mode . nano-modeline-org-agenda-mode)))
+				    ;; (load-theme 'almost-mono-black t)
+				    ;; (load-theme 'almost-mono-gray t)
+				    ;; (load-theme 'almost-mono-white t)
+                                    ((load-theme 'almost-mono-cream t))))))
 
 ;; org mode
 (use-package org
