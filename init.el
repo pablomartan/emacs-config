@@ -145,8 +145,8 @@
 
 (use-package typescript-mode
   :ensure t
-  :mode ("\\.tsx\\'" . tsx-ts)
-  :hook typescript-ts)
+  :mode ("\\.tsx\\'" . tsx-ts-mode)
+  :hook typescript-ts-mode)
 
 (use-package python-mode
   :ensure nil
