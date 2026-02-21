@@ -185,3 +185,6 @@
   :custom ((olivetti-body-width 0.75)
 	   (olivetti-style 'margins))
   :hook org-mode)
+
+;; magit
+(use-package magit)
