@@ -186,3 +186,14 @@
 ;; direnv
 (use-package direnv
   :hook (after-init . direnv-mode))
+
+;; eglot
+(use-package eglot
+  :hook
+  ((tsx-ts-mode typescript-mode python-mode) . eglot-ensure))
+
+;; flycheck
+(use-package flycheck
+  :hook
+  ((tsx-ts-mode typescript-mode python-mode) . global-flycheck-mode))
+
