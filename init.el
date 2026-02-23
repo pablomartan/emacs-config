@@ -15,10 +15,10 @@
   :bind (("C-c c" . 'org-capture)
          ("C-c a" . 'org-agenda))
   :custom-face
-  (default ((nil (:family "Roboto Mono" :weight light :height 110))))
-  (bold ((nil (:family "Roboto Mono" :weight regular))))
-  (italic ((nil (:family "Victor Mono" :weight semilight :slant italic))))
-  (fixed-pitch ((nil (:family "FiraCode Nerd Font" :weight light))))
+  (default ((nil (:family "IBM Plex Mono" :weight light :height 110))))
+  (bold ((nil (:family "IBM Plex Mono" :weight regular))))
+  (italic ((nil (:family "IBM Plex Mono" :slant italic))))
+  (fixed-pitch ((nil (:family "IBM Plex Mono"))))
   :hook
   (after-make-frame-functions . (lambda (f)
                                   (with-selected-frame f
@@ -26,6 +26,7 @@
                                      (window-divider-default-places 'right-only)
                                      (left-margin-width 0)
                                      (right-margin-width 0)))))
+
   (after-init . (lambda ()
                   (scroll-bar-mode -1)
                   (tool-bar-mode -1)
@@ -35,27 +36,16 @@
                   (column-number-mode)
                   (global-display-line-numbers-mode t))))
 
-;; nano-theme
-(use-package nano-theme
-  ;; :vc (:url "https://github.com/rougier/nano-theme"
-  ;;           :branch "rewrite"
-  ;;           :rev :newest)
+(use-package almost-mono-themes
   :hook
   (after-make-frame-functions . (lambda (frame)
                                   (with-selected-frame frame
-                                    (load-theme 'nano-light t))))
+                                    ;; (load-theme 'almost-mono-black t)
+                                    ;; (load-theme 'almost-mono-gray t)
+                                    ;; (load-theme 'almost-mono-white t)
+                                    ((load-theme 'almost-mono-white t)))))
   (after-init . (lambda ()
-                  (load-theme 'nano-light t))))
-
-;; nano-layout
-(use-package nano-modeline
-  ;; :vc (:url "https://github.com/rougier/nano-modeline"
-  ;;           :rev :newest)
-  :hook
-  ((prog-mode . nano-modeline-prog-mode)
-   (text-mode . nano-modeline-text-mode)
-   (org-capture-mode . nano-modeline-org-capture-mode)
-   (org-agenda-mode . nano-modeline-org-agenda-mode)))
+                  (load-theme 'almost-mono-white))))
 
 ;; org mode
 (use-package org
@@ -132,6 +122,14 @@
   (org-special-keyword ((nil (:inherit (font-lock-comment-face fixed-pitch)))))
   (org-meta-line ((nil (:inherit (font-lock-comment-face fixed-pitch)))))
   (org-checkbox ((nil (:inherit 'fixed-pitch))))
+  (org-level-1 ((nil (:weight regular))))
+  (org-level-2 ((nil (:weight regular))))
+  (org-level-3 ((nil (:weight regular))))
+  (org-level-4 ((nil (:weight regular))))
+  (org-level-5 ((nil (:weight regular))))
+  (org-level-6 ((nil (:weight regular))))
+  (org-level-7 ((nil (:weight regular))))
+  (org-level-8 ((nil (:weight regular))))
 
   :hook nano-modeline-org)
 
@@ -142,25 +140,20 @@
                               :inherit '(org-hide fixed-pitch))
   :hook org-mode)
 
-(use-package nix-mode
-  :ensure t)
+(use-package nix-mode)
 
 (use-package typescript-mode
-  :ensure t
-  :mode ("\\.tsx\\'" . tsx-ts)
-  :hook typescript-ts)
+  :mode ("\\.tsx\\'" . tsx-ts-mode)
+  :hook typescript-ts-mode)
 
 (use-package python-mode
-  :ensure nil
   :hook python-ts)
 
 ;; mini-buffer goodies
 (use-package vertico
-  :ensure t
   :hook (after-init . vertico-mode))
 
 (use-package orderless
-  :ensure t
   :custom
   (completion-styles '(orderless basic))
   (completion-category-defaults nil)
@@ -168,7 +161,6 @@
   (completion-pcm-leading-wildcard t)) ;; Emacs 31: partial-completion behaves like substring
 
 (use-package marginalia
-  :ensure t
   :hook (after-init . marginalia-mode))
 
 ;; projectile
@@ -188,10 +180,27 @@
 	   (olivetti-style 'margins))
   :hook org-mode)
 
-;; start customization
+(add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
+
+;; magit
+(use-package magit)
+
+;; direnv
+(use-package direnv
+  :hook (after-init . direnv-mode))
+
+;; eglot
+(use-package eglot
+  :hook
+  ((tsx-ts-mode typescript-mode python-mode) . eglot-ensure))
+
+;; flycheck
+(use-package flycheck
+  :hook
+  ((tsx-ts-mode typescript-mode python-mode) . global-flycheck-mode))
+
+;; Lilypond
 (require 'lilypond-mode)
 (autoload 'LilyPond-mode "lilypond-mode")
 (setq auto-mode-alist
       (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
-
-(add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))

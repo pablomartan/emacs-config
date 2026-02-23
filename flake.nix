@@ -36,7 +36,13 @@
                 tree-sitter-python
               ]))
           ]
-          ++ [pkgs.lilypond];
+          ++ [
+            pkgs.lilypond
+            pkgs.pyright
+            pkgs.pylint
+            pkgs.typescript-language-server
+            pkgs.eslint_d
+          ];
     };
   };
 }
