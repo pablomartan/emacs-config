@@ -195,5 +195,5 @@
 ;; flycheck
 (use-package flycheck
   :hook
-  ((tsx-ts-mode typescript-mode python-mode) . global-flycheck-mode))
+  ((tsx-ts-mode typescript-mode python-mode) . flycheck-mode))
 
