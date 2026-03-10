@@ -15,10 +15,10 @@
   :bind (("C-c c" . 'org-capture)
          ("C-c a" . 'org-agenda))
   :custom-face
-  (default ((nil (:family "IBM Plex Mono" :weight light :height 110))))
-  (bold ((nil (:family "IBM Plex Mono" :weight regular))))
-  (italic ((nil (:family "IBM Plex Mono" :slant italic))))
-  (fixed-pitch ((nil (:family "IBM Plex Mono"))))
+  (default ((nil (:family "Maple Mono NF" :weight light :height 110))))
+  (bold ((nil (:family "Maple Mono NF" :weight regular))))
+  (italic ((nil (:family "Maple Mono NF" :slant italic))))
+  (fixed-pitch ((nil (:family "Maple Mono NF"))))
   :hook
   (after-make-frame-functions . (lambda (f)
                                   (with-selected-frame f
@@ -36,16 +36,19 @@
                   (column-number-mode)
                   (global-display-line-numbers-mode t))))
 
-(use-package almost-mono-themes
+(use-package berrys-theme
+  :custom ;; for good measure and clarity
+  (cursor-type '(bar . 2))
+  (line-spacing 2)
   :hook
   (after-make-frame-functions . (lambda (frame)
                                   (with-selected-frame frame
                                     ;; (load-theme 'almost-mono-black t)
                                     ;; (load-theme 'almost-mono-gray t)
                                     ;; (load-theme 'almost-mono-white t)
-                                    ((load-theme 'almost-mono-white t)))))
+                                    ((load-theme 'berrys t)))))
   (after-init . (lambda ()
-                  (load-theme 'almost-mono-white))))
+                  (load-theme 'berrys))))
 
 ;; org mode
 (use-package org
