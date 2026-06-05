@@ -12,6 +12,7 @@
                          (tool-bar-lines . 0)))
   (initial-frame-alist default-frame-alist)
   (global-hl-line-mode t)
+  (use-package-ensure-installed t)
   :bind (("C-c c" . 'org-capture)
          ("C-c a" . 'org-agenda))
   :custom-face
@@ -36,19 +37,27 @@
                   (column-number-mode)
                   (global-display-line-numbers-mode t))))
 
+;; (use-package almost-mono-themes
+;;   :hook
+;;   (after-make-frame-functions . (lambda (frame)
+;;                                   (with-selected-frame frame
+;;                                     ;; (load-theme 'almost-mono-black t)
+;;                                     ;; (load-theme 'almost-mono-gray t)
+;;                                     ;; (load-theme 'almost-mono-gray t)
+;;                                     ((load-theme 'almost-mono-white t)))))
+;;   (after-init . (lambda ()
+;;                   (load-theme 'almost-mono-white))))
+
 (use-package berrys-theme
-  :custom ;; for good measure and clarity
-  (cursor-type '(bar . 2))
-  (line-spacing 2)
-  :hook
-  (after-make-frame-functions . (lambda (frame)
-                                  (with-selected-frame frame
-                                    ;; (load-theme 'almost-mono-black t)
-                                    ;; (load-theme 'almost-mono-gray t)
-                                    ;; (load-theme 'almost-mono-white t)
-                                    ((load-theme 'berrys t)))))
-  (after-init . (lambda ()
-                  (load-theme 'berrys))))
+             :custom ;; for good measure and clarity
+             (cursor-type '(bar . 2))
+             (line-spacing 2)
+             :hook
+             (after-make-frame-functions . (lambda (frame) 
+                                             (with-selected-frame frame 
+                                                                  ((load-theme 'berrys-theme t)))))
+             (after-init . (lambda ()
+                             (load-theme 'berrys-theme))))
 
 ;; org mode
 (use-package org
@@ -200,3 +209,9 @@
   :hook
   ((tsx-ts-mode typescript-mode python-mode) . flycheck-mode))
 
+;; agent-shell
+(use-package agent-shell
+  :bind (:map agent-shell-mode-map
+              ("RET" . newline)
+              ("C-c C-c" . shell-maker-submit)
+              ("C-c C-k" . agent-shell-interrupt)))
