@@ -13,6 +13,8 @@
   (initial-frame-alist default-frame-alist)
   (global-hl-line-mode t)
   (use-package-ensure-installed t)
+  (cursor-type '(bar . 2))
+  (line-spacing 2)
   :bind (("C-c c" . 'org-capture)
          ("C-c a" . 'org-agenda))
   :custom-face
@@ -37,27 +39,30 @@
                   (column-number-mode)
                   (global-display-line-numbers-mode t))))
 
-;; (use-package almost-mono-themes
-;;   :hook
-;;   (after-make-frame-functions . (lambda (frame)
-;;                                   (with-selected-frame frame
-;;                                     ;; (load-theme 'almost-mono-black t)
-;;                                     ;; (load-theme 'almost-mono-gray t)
-;;                                     ;; (load-theme 'almost-mono-gray t)
-;;                                     ((load-theme 'almost-mono-white t)))))
-;;   (after-init . (lambda ()
-;;                   (load-theme 'almost-mono-white))))
+;; (use-package berrys-theme
+;;              :custom ;; for good measure and clarity
+;;              (cursor-type '(bar . 2))
+;;              (line-spacing 2)
+;;              :hook
+;;              (after-make-frame-functions . (lambda (frame) 
+;;                                              (with-selected-frame frame 
+;;                                                                   ((load-theme 'berrys-theme t)))))
+;;              (after-init . (lambda ()
+;;                              (load-theme 'berrys-theme))))
 
-(use-package berrys-theme
-             :custom ;; for good measure and clarity
-             (cursor-type '(bar . 2))
-             (line-spacing 2)
-             :hook
-             (after-make-frame-functions . (lambda (frame) 
-                                             (with-selected-frame frame 
-                                                                  ((load-theme 'berrys-theme t)))))
-             (after-init . (lambda ()
-                             (load-theme 'berrys-theme))))
+(use-package doric-themes
+  :custom
+  (doric-themes-to-toggle '(doric-light doric-dark))
+  (doric-themes-to-rotate doric-themes-collection)
+  (doric-themes-select 'doric-light)
+  :bind
+  (("<f5>" . doric-themes-toggle))
+  :hook
+  (after-make-frame-functions . (lambda (frame) 
+                                  (with-selected-frame frame 
+                                    ((load-theme 'doric-light t)))))
+  (after-init . (lambda ()
+    (load-theme 'doric-light))))
 
 ;; org mode
 (use-package org
