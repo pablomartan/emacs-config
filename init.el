@@ -200,3 +200,11 @@
   :hook
   ((tsx-ts-mode typescript-mode python-mode) . flycheck-mode))
 
+;; agent shell
+(use-package agent-shell
+  :custom
+  (agent-shell-show-context-usage-indicator 't)
+  :bind (:map agent-shell-mode-map
+              ("RET" . newline)
+	      ("C-c C-c" . shell-maker-submit)
+	      ("C-c C-k" . agent-shell-interrupt)))
