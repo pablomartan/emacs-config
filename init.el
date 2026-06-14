@@ -3,8 +3,10 @@
   (inhibit-startup-message t)
   (visible-bell t)
   (display-line-numbers-type 'visual)
-  (default-frame-alist '((min-height . 1)'(height . 45)
-                         (min-width  . 1)  '(width  . 81)
+  (default-frame-alist '((min-height . 1)
+                         '(height . 45)
+                         (min-width  . 1)
+                         '(width  . 81)
                          (vertical-scroll-bars . nil)
                          (internal-border-width . 16)
                          (left-fringe . 0)
@@ -12,6 +14,8 @@
                          (tool-bar-lines . 0)))
   (initial-frame-alist default-frame-alist)
   (global-hl-line-mode t)
+  (cursor-type '(bar . 2))
+  (line-spacing 2)
   :bind (("C-c c" . 'org-capture)
          ("C-c a" . 'org-agenda))
   :custom-face
@@ -36,19 +40,20 @@
                   (column-number-mode)
                   (global-display-line-numbers-mode t))))
 
-(use-package berrys-theme
-  :custom ;; for good measure and clarity
-  (cursor-type '(bar . 2))
-  (line-spacing 2)
+(use-package ef-themes
+  :custom
+  (ef-themes-to-toggle '(ef-cyprus ef-elea-dark))
+  (modus-themes-include-derivatives-mode t)
+  :bind
+  (("<f5>" . ef-themes-toggle)
+   ("C-<f5>" . ef-themes-select)
+   ("M-<f5>" . ef-themes-load-random))
   :hook
-  (after-make-frame-functions . (lambda (frame)
-                                  (with-selected-frame frame
-                                    ;; (load-theme 'almost-mono-black t)
-                                    ;; (load-theme 'almost-mono-gray t)
-                                    ;; (load-theme 'almost-mono-white t)
-                                    ((load-theme 'berrys t)))))
+  (after-make-frame-functions . (lambda (f)
+				  (with-selected-frame f
+				    ((modus-themes-load-theme 'ef-cyprus)))))
   (after-init . (lambda ()
-                  (load-theme 'berrys))))
+                  (modus-themes-load-theme 'ef-cyprus))))
 
 ;; org mode
 (use-package org
